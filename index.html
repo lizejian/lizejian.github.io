@@ -153,27 +153,92 @@ ga('send', 'pageview');
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-helloworld" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-神经网络之激活函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/24/helloworld/">helloworld</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/24/helloworld/" class="archive-article-date">
-  	<time datetime="2017-09-24T02:38:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-24</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="机器学习激活函数-Activation-Function"><a href="#机器学习激活函数-Activation-Function" class="headerlink" title="机器学习激活函数(Activation Function)"></a>机器学习激活函数(Activation Function)</h1><p>在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。</p>
+<h2 id="激活函数的性质"><a href="#激活函数的性质" class="headerlink" title="激活函数的性质:"></a>激活函数的性质:</h2><ul>
+<li>非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。</li>
+<li>可微性：当优化方法是基于梯度的时候，这个性质是必须的。</li>
+</ul>
+<h2 id="常见的激活函数"><a href="#常见的激活函数" class="headerlink" title="常见的激活函数"></a>常见的激活函数</h2><h3 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h3><p>数学形式<br>[<br>    sigmoid(x) = \frac{1}{1+e^{-x}}<br>]<br>形状</p>
+<div align="center"><br><br><img src="assets/markdown-img-paste-20170926080536411.png" alt=""><br><br></div>
+
+<p>描述</p>
+<ul>
+<li>结果为[0,1]，<strong>均值为0.5</strong>。</li>
+</ul>
+<p>优点</p>
+<ul>
+<li><strong>结果为[0,1]</strong>。在二元分类中，常用来做输出层的激活函数。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li><strong>软饱和</strong>。当输入极大或者极小时，神经元的梯度是接近于0，处于饱和状态，网络变得很难学习。</li>
+<li><strong>偏移现象</strong>。均值为0.5，下一层神经元的输入均值不为0。</li>
+</ul>
+<h3 id="tanh函数"><a href="#tanh函数" class="headerlink" title="tanh函数"></a>tanh函数</h3><p>数学形式<br>[<br>    tanh(x) = 2sigmoid(2x) - 1 = \frac{2}{1+e^{-2x}}-1=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}<br>]<br>形状</p>
+<div align="center"><br><br><img src="assets/markdown-img-paste-20170926080437430.png" alt=""><br><br></div>
+
+<p>描述</p>
+<ul>
+<li>结果为[-1,1]，均值为0。</li>
+</ul>
+<p>优点</p>
+<ul>
+<li><strong>均值为0</strong>。不存在偏移现象。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li><strong>软饱和</strong>。当输入极大或者极小时，神经元的梯度是接近于0，处于饱和状态，网络变得很难学习。</li>
+</ul>
+<h3 id="ReLU函数"><a href="#ReLU函数" class="headerlink" title="ReLU函数"></a>ReLU函数</h3><p>数学形式<br>[<br>    ReLU(x) = max(0,x)<br>]<br>形状</p>
+<div align="center"><br><br><img src="assets/markdown-img-paste-20170926091252946.png" alt=""><br><br></div>
+
+<p>描述</p>
+<ul>
+<li>结果为[0,∞]。</li>
+</ul>
+<p>优点</p>
+<ul>
+<li><strong>计算速度快</strong>。ReLU只需要一个阈值就可以得到激活值，计算简单。</li>
+<li><strong>收敛速度快</strong>。在大于0的区域其梯度恒为1，不存在饱和现象。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li><strong>偏移现象</strong>。均值不为0。</li>
+<li><strong>硬饱和</strong>。在小于0的区域其梯度为0。</li>
+<li><strong>神经元死亡</strong>。当输入落入小于0的区域时，其梯度等于0，导致对应权重无法更新。<strong>减小学习速率可以缓解</strong>。</li>
+</ul>
+<h3 id="Leaky-ReLU函数"><a href="#Leaky-ReLU函数" class="headerlink" title="Leaky-ReLU函数"></a>Leaky-ReLU函数</h3><p>数学形式<br>[<br>    ReLU(x) = max(\alpha x,x),\alpha = 0.01<br>]</p>
+<p>形状</p>
+<div align="center"><br><br><img src="assets/markdown-img-paste-20170926091702440.png" alt=""><br><br></div>
+
+<p>描述</p>
+<ul>
+<li>结果为[-∞,∞]。</li>
+</ul>
+<p>优点</p>
+<ul>
+<li><strong>计算速度快</strong>。ReLU只需要一个阈值就可以得到激活值，计算简单。</li>
+<li><strong>收敛速度快</strong>。在大于0的区域其梯度恒为1，不存在饱和现象。</li>
+<li><strong>解决了神经元死亡问题</strong>。在小于0的区域，存在梯度不为0。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>不够成熟，不常用。</li>
+</ul>
+<h2 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h2><ul>
+<li>sigmoid函数常用于二元分类神经网络的输出层。</li>
+<li>ReLU函数常用于神经网络的隐藏层，使用时应注意将learning-rate设置小一点，避免神经元死亡。</li>
+</ul>
+<h3 id="硬饱和与软饱和"><a href="#硬饱和与软饱和" class="headerlink" title="硬饱和与软饱和"></a><strong>硬饱和与软饱和</strong></h3><ul>
+<li>硬饱和。函数的导数等于0</li>
+<li>软饱和。函数的导数趋近于0</li>
+</ul>
+
       
 
       
@@ -181,37 +246,11 @@ ga('send', 'pageview');
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Hexo//" class="article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/24/helloworld/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/09/26/神经网络之激活函数/">展开全文 >></a>
         </p>
       
 
