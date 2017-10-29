@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="写在前面不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。 AlexNet网络结构 AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。| 操作层    | 输入尺寸 |参数     | 输出尺寸 || :————- | :————- |:————- |:————- || 输入层  | [227x227x3]| |  [22">
+<meta property="og:type" content="article">
+<meta property="og:title" content="经典卷积神经网络（AlexNet）">
+<meta property="og:url" content="http://lizejian.github.io.com/2017/10/17/经典卷积神经网络（AlexNet）/index.html">
+<meta property="og:site_name" content="Zejian&#39;s Blog">
+<meta property="og:description" content="写在前面不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。 AlexNet网络结构 AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。| 操作层    | 输入尺寸 |参数     | 输出尺寸 || :————- | :————- |:————- |:————- || 输入层  | [227x227x3]| |  [22">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/10/17/经典卷积神经网络（AlexNet）/2017-10-17-经典卷积神经网络（AlexNet）/markdown-img-paste-20171017203240734.png">
+<meta property="og:updated_time" content="2017-10-21T17:45:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="经典卷积神经网络（AlexNet）">
+<meta name="twitter:description" content="写在前面不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。 AlexNet网络结构 AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。| 操作层    | 输入尺寸 |参数     | 输出尺寸 || :————- | :————- |:————- |:————- || 输入层  | [227x227x3]| |  [22">
+<meta name="twitter:image" content="http://lizejian.github.io.com/2017/10/17/经典卷积神经网络（AlexNet）/2017-10-17-经典卷积神经网络（AlexNet）/markdown-img-paste-20171017203240734.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lizejian.github.io.com/2017/10/17/经典卷积神经网络（AlexNet）/"/>
+
+
+
+
+
+  <title>经典卷积神经网络（AlexNet） | Zejian's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zejian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这么好的故事，你可别演砸了。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizejian.github.io.com/2017/10/17/经典卷积神经网络（AlexNet）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zejian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zejian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">经典卷积神经网络（AlexNet）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T20:19:53+08:00">
+                2017-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。</p>
+<h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p><img src="2017-10-17-经典卷积神经网络（AlexNet）/markdown-img-paste-20171017203240734.png" alt=""></p>
+<p>AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。<br>| 操作层    | 输入尺寸 |参数     | 输出尺寸 |<br>| :————- | :————- |:————- |:————- |<br>| 输入层  | [227x227x3]| |  [227x227x3]  |<br>| 卷积层1 | [227x227x3]| 核[11,11,3,96] strides=[1,4,4,1]|[55x55x96]|<br>| 池化层1 | [55x55x96]| 核[1,3,3,1] strides=[1,2,2,1]|[27x27x96]|<br>| 卷积层2 | [27x27x96]| 核[5,5,96,256] strides=[1,1,1,1] pad=2]|[27x27x256]|<br>| 池化层2 | [27x27x256]| 核[1,3,3,1] strides=[1,2,2,1]|[13x13x256]|<br>| 卷积层3 | [13x13x256]| 核[3,3,256,384] strides=[1,1,1,1] pad=1|[13x13x384]|<br>| 卷积层4 | [13x13x384]| 核[3,3,384,384] strides=[1,1,1,1] pad=1|[13x13x384]|<br>| 卷积层5 | [13x13x384]| 核[3,3,384,256] strides=[1,1,1,1] pad=1|[13x13x256]|<br>| 池化层3 | [13x13x256]| 核[1,3,3,1] strides=[1,2,2,1] pad=1|[6x6x256]|<br>| 全连接层1 | [6x6x256] | [4096] |[4096]|<br>| 全连接层2 | [4096] | [4096] | [4096]|<br>| softmax | [4096] | [1000] |[1000]|</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>针对网络架构:<ul>
+<li>使用ReLU作为激活函数，收敛速度快，并验证其效果在较深的网络要优于Sigmoid。</li>
+<li>使用LRN层，对局部神经元的活动创建竞争机制，使得其中响应比较大的值变的相对更大，并抑制其他反馈较小的神经元，增强了模型的泛化能力。</li>
+<li>使用<strong>重叠的最大池化</strong>，让步长比池化核的尺寸小，池化层的输出之间会有重叠，提升了特征的丰富性。</li>
+</ul>
+</li>
+<li>针对过拟合现象:<ul>
+<li>数据增强，对原始图像随机截取输入图片尺寸大小(以及对图像作水平翻转操作)，使用数据增强后大大减轻过拟合，提升模型的泛化能力。</li>
+<li>使用Dropout随机忽略一部分神经元，避免模型过拟合。</li>
+</ul>
+</li>
+<li>针对训练速度:<ul>
+<li>使用GPU。</li>
+</ul>
+</li>
+</ul>
+<h2 id="AlexNet-应用-MNIST"><a href="#AlexNet-应用-MNIST" class="headerlink" title="AlexNet 应用 MNIST"></a>AlexNet 应用 MNIST</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div></pre></td><td class="code"><pre><div class="line"># coding:utf8</div><div class="line"></div><div class="line">from tensorflow.examples.tutorials.mnist import input_data</div><div class="line">import tensorflow as tf</div><div class="line"></div><div class="line"></div><div class="line">def initialize_weight(shape, stddev, name):</div><div class="line">	initial = tf.truncated_normal(shape, dtype = tf.float32, stddev = stddev)</div><div class="line">	return tf.Variable(initial, name = name)</div><div class="line"></div><div class="line">def initialize_bias(shape):</div><div class="line">	initial = tf.random_normal(shape)</div><div class="line">	return tf.Variable(initial)</div><div class="line"></div><div class="line">def conv2d(x, w, b):</div><div class="line">	return tf.nn.relu((tf.nn.conv2d(x, w, strides = [1, 1, 1, 1], padding = &apos;SAME&apos;) + b))</div><div class="line"></div><div class="line">def max_pool(x, f):</div><div class="line">	return tf.nn.max_pool(x, ksize = [1, f, f, 1], strides = [1, 1, 1, 1], padding = &apos;SAME&apos;)</div><div class="line"></div><div class="line"># Create AlexNet Model</div><div class="line">x = tf.placeholder(tf.float32, [None, 784])</div><div class="line">x_image = tf.reshape(x, shape = [-1, 28, 28, 1])</div><div class="line">y = tf.placeholder(tf.float32, [None, 10])</div><div class="line"></div><div class="line"># layer1: conv2d</div><div class="line">w1_conv = initialize_weight([3, 3, 1, 64], 0.1, &apos;w1&apos;)</div><div class="line">b1_conv = initialize_bias([64])</div><div class="line">h1_conv = conv2d(x_image, w1_conv, b1_conv)#28x28x1&gt;&gt;28x28x64</div><div class="line">h1_pool = max_pool(h1_conv, 2)#28x28x64&gt;&gt;14x14x64</div><div class="line"></div><div class="line"># layer2: conv2d</div><div class="line">w2_conv = initialize_weight([3, 3, 64, 64], 0.1, &apos;w2&apos;)</div><div class="line">b2_conv = initialize_bias([64])</div><div class="line">h2_conv = conv2d(h1_pool, w2_conv, b2_conv)#14x14x64&gt;&gt;14x14x64</div><div class="line">h2_pool = max_pool(h2_conv, 2)#14x14x64&gt;&gt;7x7x64</div><div class="line"></div><div class="line"># layer3: conv2d</div><div class="line">w3_conv = initialize_weight([3, 3, 64, 128], 0.1, &apos;w3&apos;)</div><div class="line">b3_conv = initialize_bias([128])</div><div class="line">h3_conv = conv2d(h2_pool, w3_conv, b3_conv)#7x7x64&gt;&gt;7x7x128</div><div class="line"></div><div class="line"># layer4: conv2d</div><div class="line">w4_conv = initialize_weight([3, 3, 128, 128], 0.1, &apos;w4&apos;)</div><div class="line">b4_conv = initialize_bias([128])</div><div class="line">h4_conv = conv2d(h3_conv, w4_conv, b4_conv)#7x7x128&gt;&gt;7x7x128</div><div class="line"></div><div class="line"># layer5: conv2d</div><div class="line">w5_conv = initialize_weight([3, 3, 128, 256], 0.1, &apos;w5&apos;)</div><div class="line">b5_conv = initialize_bias([256])</div><div class="line">h5_conv = conv2d(h4_conv, w5_conv, b5_conv)#7x7x128&gt;&gt;7x7x256</div><div class="line">h5_pool = max_pool(h5_conv, 2)#</div><div class="line">shape = h5_pool.get_shape()</div><div class="line">h5_pool_flat = tf.reshape(h5_pool, [-1, shape[1].value*shape[2].value*shape[3].value])</div><div class="line"></div><div class="line"># layer6: full connection</div><div class="line">w6_fc = initialize_weight([256*28*28, 1024], 0.01, &apos;w6&apos;)</div><div class="line">b6_fc = initialize_bias([1024])</div><div class="line">h6_fc = tf.nn.relu(tf.matmul(h5_pool_flat, w6_fc) + b6_fc)</div><div class="line">keep_prob = tf.placeholder(&apos;float&apos;)</div><div class="line">h6_drop = tf.nn.dropout(h6_fc, keep_prob = keep_prob)</div><div class="line"></div><div class="line"># layer7: full connection</div><div class="line">w7_fc = initialize_weight([1024, 1024], 0.01, &apos;w7&apos;)</div><div class="line">b7_fc = initialize_bias([1024])</div><div class="line">h7_fc = tf.nn.relu(tf.matmul(h6_drop, w7_fc) + b7_fc)</div><div class="line">h7_drop = tf.nn.dropout(h7_fc, keep_prob = keep_prob)</div><div class="line"></div><div class="line"># layer8: softmax</div><div class="line">w8_sf = initialize_weight([1024, 10], 0.01, &apos;w8&apos;)</div><div class="line">b8_sf = initialize_bias([10])</div><div class="line">y_conv = tf.nn.softmax(tf.matmul(h7_drop, w8_sf) + b8_sf)</div><div class="line"></div><div class="line">cross_entropy = -tf.reduce_sum(y * tf.log(y_conv))</div><div class="line">train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)</div><div class="line">correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y, 1))</div><div class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</div><div class="line"></div><div class="line"># Train AlexNet Model</div><div class="line">mnist = input_data.read_data_sets(&apos;MNIST_data/&apos;, one_hot = True)</div><div class="line">sess = tf.Session()</div><div class="line">sess.run(tf.global_variables_initializer())</div><div class="line">for i in range(1500):</div><div class="line">	batch = mnist.train.next_batch(64)</div><div class="line">	if i % 10 == 0:</div><div class="line">		train_accuracy = sess.run(accuracy, feed_dict = &#123;x: batch[0], y: batch[1], keep_prob: 0.9&#125;)</div><div class="line">		print(&apos;step %d, training accuracy %g&apos; % (i, train_accuracy))</div><div class="line">	sess.run(train_step, feed_dict = &#123;x: batch[0], y: batch[1], keep_prob: 0.9&#125;)</div><div class="line"></div><div class="line">test_accuracy = sess.run(accuracy, feed_dict = &#123;x: mnist.test.images, y: mnist.test.labels, keep_prob: 0.9&#125;)</div><div class="line">print(&apos;test accuracy %g&apos; % test_accuracy)</div><div class="line">sess.close()</div></pre></td></tr></table></figure>
+<p>参考：<br><a href="http://blog.csdn.net/u011974639/article/details/76146822#alexnet的特点" target="_blank" rel="external">http://blog.csdn.net/u011974639/article/details/76146822#alexnet的特点</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/14/卷积神经网络(Convolutional Neural Network）/" rel="next" title="卷积神经网络(Convolutional Neural Network）">
+                <i class="fa fa-chevron-left"></i> 卷积神经网络(Convolutional Neural Network）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/26/git的基本命令/" rel="prev" title="git的基本命令">
+                git的基本命令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Zejian" />
+          <p class="site-author-name" itemprop="name">Zejian</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizejian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet"><span class="nav-number">2.</span> <span class="nav-text">AlexNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络结构"><span class="nav-number">2.1.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet-应用-MNIST"><span class="nav-number">3.</span> <span class="nav-text">AlexNet 应用 MNIST</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zejian</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

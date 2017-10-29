@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="反向传播神经网络（Back propagation）BP神经网络是一种多层的前馈神经网络，通过误差逆向传播算法来不断调整网络参数，使网络的误差达到最小，是目前应用最广泛的神经网络。 BP神经网络模型神经网络由很多层构成，每一层又由许多单元组成。神经网络第一层叫输入层，最后一层叫输出层，中间的各层叫隐藏层。训练一个BP神经网络，实质上就是调整网络的权重（W）和偏置（b）这两个参数。BP神经网络的训练">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反向传播神经网络（back propagation）">
+<meta property="og:url" content="http://lizejian.github.io.com/2017/10/14/反向传播神经网络（Back propagation）/index.html">
+<meta property="og:site_name" content="Zejian&#39;s Blog">
+<meta property="og:description" content="反向传播神经网络（Back propagation）BP神经网络是一种多层的前馈神经网络，通过误差逆向传播算法来不断调整网络参数，使网络的误差达到最小，是目前应用最广泛的神经网络。 BP神经网络模型神经网络由很多层构成，每一层又由许多单元组成。神经网络第一层叫输入层，最后一层叫输出层，中间的各层叫隐藏层。训练一个BP神经网络，实质上就是调整网络的权重（W）和偏置（b）这两个参数。BP神经网络的训练">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/10/14/反向传播神经网络（Back%20propagation）/2017-10-14-反向传播神经网络（Back%20propagation）/神经网络-8bc3c.png">
+<meta property="og:updated_time" content="2017-10-18T05:24:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="反向传播神经网络（back propagation）">
+<meta name="twitter:description" content="反向传播神经网络（Back propagation）BP神经网络是一种多层的前馈神经网络，通过误差逆向传播算法来不断调整网络参数，使网络的误差达到最小，是目前应用最广泛的神经网络。 BP神经网络模型神经网络由很多层构成，每一层又由许多单元组成。神经网络第一层叫输入层，最后一层叫输出层，中间的各层叫隐藏层。训练一个BP神经网络，实质上就是调整网络的权重（W）和偏置（b）这两个参数。BP神经网络的训练">
+<meta name="twitter:image" content="http://lizejian.github.io.com/2017/10/14/反向传播神经网络（Back%20propagation）/2017-10-14-反向传播神经网络（Back%20propagation）/神经网络-8bc3c.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lizejian.github.io.com/2017/10/14/反向传播神经网络（Back propagation）/"/>
+
+
+
+
+
+  <title>反向传播神经网络（back propagation） | Zejian's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zejian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这么好的故事，你可别演砸了。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizejian.github.io.com/2017/10/14/反向传播神经网络（Back propagation）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zejian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zejian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">反向传播神经网络（back propagation）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-14T22:01:56+08:00">
+                2017-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="反向传播神经网络（Back-propagation）"><a href="#反向传播神经网络（Back-propagation）" class="headerlink" title="反向传播神经网络（Back propagation）"></a>反向传播神经网络（Back propagation）</h1><p>BP神经网络是一种多层的前馈神经网络，通过误差逆向传播算法来不断调整网络参数，使网络的误差达到最小，是目前应用最广泛的神经网络。</p>
+<h2 id="BP神经网络模型"><a href="#BP神经网络模型" class="headerlink" title="BP神经网络模型"></a>BP神经网络模型</h2><p>神经网络由很多层构成，每一层又由许多单元组成。神经网络第一层叫输入层，最后一层叫输出层，中间的各层叫隐藏层。<br><img src="2017-10-14-反向传播神经网络（Back propagation）/神经网络-8bc3c.png" alt="BP神经网络结构"><br>训练一个BP神经网络，实质上就是调整网络的权重（W）和偏置（b）这两个参数。<br>BP神经网络的训练过程分为两部分</p>
+<ul>
+<li>前向传输，逐层波浪式的传递输出值。</li>
+<li>逆向反馈，反向逐层调整权重和偏置。</li>
+</ul>
+<h3 id="前向传播算法"><a href="#前向传播算法" class="headerlink" title="前向传播算法"></a>前向传播算法</h3><p>$$ a^{(1)}=w^{(1)}x + b^{(1)} $$</p>
+<p>$$ z^{(1)}=ReLU(a^{(1)}) $$</p>
+<p>$$ a^{(2)}=w^{(2)}z^{(1)} + b^{(2)}$$</p>
+<p>$$ z^{(2)}$$</p>
+<h3 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h3><h3 id="多分类（softmax）"><a href="#多分类（softmax）" class="headerlink" title="多分类（softmax）"></a>多分类（softmax）</h3><h2 id="搭建神经网络"><a href="#搭建神经网络" class="headerlink" title="搭建神经网络"></a>搭建神经网络</h2><ul>
+<li><p>特征归一化（normalization）<br>控制特征值区间，使之与数据集中其他特征的区间匹配，可加快训练速度。</p>
+<ul>
+<li>线性归一化（Min-Max scaling）。将原始数据线性转换到[0,1]区间内，适用于灰度转换等不符从正态分布的数据。$X<em>{norm}=\frac{X-X</em>{min}}{X<em>{max}-X</em>{min}}$</li>
+<li>0均值标准化（Z-score standardization）。将原始数据归一化为0均值，方差为1的数据集，适用于聚类、分类算法中服从正态分布的数据。$z=\frac{x-\mu}{\sigma}$</li>
+</ul>
+</li>
+<li><p>网络的层数<br>理论已经证明，一个S型隐藏层加上一个线性输出层，能够逼近任何有理函数，增加层数可以进一步降低误差，提高精度，但同时也是网络复杂化。</p>
+</li>
+<li><p>隐层神经元的个数<br>增加神经元个数在结构实现上要比增加网络层数简单得多。</p>
+<ul>
+<li>神经元数太少时，网络学习能力低，训练迭代的次数也比较多，训练精度也不高。</li>
+<li>神经元数太多时，网络学习能力高，精确度也更高，训练迭代的次数也大，可能会出现过拟合(over fitting)现象。</li>
+</ul>
+<p>因此，隐层神经元个数的选取原则是：在能够解决问题的前提下，增加一两个神经元，以加快误差下降速度。</p>
+</li>
+<li><p>参数初始化</p>
+<ul>
+<li>全零初始化。导致网络中每个神经元都得到同样的输出，在反向传播中计算出同样的梯度，从而进行同样的参数更新。神经元之间就失去了不对称性的源头。</li>
+<li><p>随机初始化。将权重初始化为很小的数值，以此来打破对称性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># n1为前一层神经元数，n2为本层神经元数</div><div class="line">w = np.random.randn(n1,n2) * 0.01</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用校准方差。随着输入数据量的增长，随机初始化的神经元的输出数据的分布中的方差也在增大。通过除以输入数据量的平方根来调整其数值范围，将神经元输出的方差就归一化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># n1为前一层神经元数，n2为本层神经元数</div><div class="line">w = np.random.randn(n1,n2) * sqrt(2/n1)#ReLU神经元</div><div class="line">w = np.random.randn(n1,n2) * sqrt(2/n1)#tanh神经元</div><div class="line">w = np.random.randn(n1,n2) * sqrt(2/(n1 + n2))#最新的做法</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>学习速率</p>
+<ul>
+<li>固定的学习速率。如果学习速率太小，则会使收敛过慢，如果学习速率太大，则会导致代价函数振荡。</li>
+<li>学习率衰减。对于复杂的网络，在不同的阶段设置不同大小的学习速率，效果会更好。① $\alpha=\frac{1}{1+decay^{epoch}}<em> \alpha_{0}$ ②  $\alpha=0.95^{epoch}</em> \alpha_{0}$</li>
+</ul>
+</li>
+<li><p>Batch Norm？？？？？？？？<br>在网络的每一层输入的时候，又插入了一个归一化层，也就是先做一个归一化处理，然后再进入网络的下一层。 <a href="http://blog.csdn.net/hjimce/article/details/50866313" target="_blank" rel="external">http://blog.csdn.net/hjimce/article/details/50866313</a></p>
+</li>
+</ul>
+<h3 id="神经网络中的正则化"><a href="#神经网络中的正则化" class="headerlink" title="神经网络中的正则化"></a>神经网络中的正则化</h3><p>正则化是以增大训练误差为代价来减少泛化误差的机器学习策略，主要是为了解决<strong>过拟合</strong>问题。<br>现有的正则化策略中，有些是向模型添加额外的约束，如增加对参数的限制。有些是向目标函数增加惩罚项，对应于参数值的软约束。这些约束和惩罚实质上是为特定模型添加先验知识，以降低训练数据的影响，提高泛化能力。</p>
+<ul>
+<li><p>正则化L1、L2</p>
+</li>
+<li><p>dropout正则化（dropout regularization）<br>在神经网络的训练过程中，按照一定的概率，将部分神经元<strong>暂时</strong>关闭。经过交叉验证发现，dropout率等于0.5的时候效果最好，此时网络结构最多。</p>
+</li>
+<li><p>数据增强（Data Augmentation）<br>通过图像的几何变换, 使用一种或多种组合数据增强变换来增加输入数据的量。</p>
+<ul>
+<li>旋转|反射变换(Rotation/reflection): 随机旋转图像一定角度; 改变图像内容的朝向;</li>
+<li>翻转变换(flip): 沿着水平或者垂直方向翻转图像;</li>
+<li>缩放变换(zoom): 按照一定的比例放大或者缩小图像;</li>
+<li>平移变换(shift): 在图像平面上对图像以一定方式进行平移;</li>
+</ul>
+</li>
+<li><p>早期停止法（early stopping）<br>在每一个epoch结束时计算验证集的准确率，当准确率不再提高时，就停止训练。可以通过<strong>学习曲线</strong>来判断。</p>
+</li>
+</ul>
+<h2 id="神经网络优化算法"><a href="#神经网络优化算法" class="headerlink" title="神经网络优化算法"></a>神经网络优化算法</h2><ul>
+<li>mini-batch<br>当数据量太大时，使用BGD会很慢。</li>
+<li>指数加权平均</li>
+<li>momentum</li>
+<li>RMStop</li>
+<li>Adam</li>
+</ul>
+<h3 id="梯度消失与梯度爆炸？？？？？"><a href="#梯度消失与梯度爆炸？？？？？" class="headerlink" title="梯度消失与梯度爆炸？？？？？"></a>梯度消失与梯度爆炸？？？？？</h3><p>梯度不稳定的原因在于BP网络自身。BP神经网络基于反向传播，在计算每层梯度时会涉及连乘操作。当网络过深时，如果连乘的因子小于1，乘积可能趋于0；如果连乘的因子大于1，乘积可能趋于无穷。<br>解决梯度消失问题：不使用sigmoid函数。sigmoid函数的最大梯度仅为1/4，连乘很容易造成梯度消失。<br>解决梯度爆炸问题：①学习率衰减。在每一层使用不同的学习速率，使每一层的乘积可以维持稳定。②<strong>梯度截断</strong>。在应用梯度之前先修饰数值，有助于确保数值稳定性，防止梯度爆炸出现。</p>
+<h3 id="BP神经网络的缺陷："><a href="#BP神经网络的缺陷：" class="headerlink" title="BP神经网络的缺陷："></a>BP神经网络的缺陷：</h3><ul>
+<li>陷入局部极值，使训练失败。BP算法为一种局部搜索的优化方法，但它要解决的问题为求解复杂非线性函数的全局极值。</li>
+<li>训练次数多使得学习效率低，收敛速度慢。</li>
+<li>训练时学习新样本有遗忘旧样本的趋势。</li>
+</ul>
+<p>参考：<br><a href="http://blog.csdn.net/lujiandong1/article/details/53320174" target="_blank" rel="external">http://blog.csdn.net/lujiandong1/article/details/53320174</a><br><a href="http://blog.csdn.net/hjimce/article/details/50866313" target="_blank" rel="external">http://blog.csdn.net/hjimce/article/details/50866313</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/14/机器学习经典面试问题/" rel="next" title="机器学习经典面试问题">
+                <i class="fa fa-chevron-left"></i> 机器学习经典面试问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/14/卷积神经网络(Convolutional Neural Network）/" rel="prev" title="卷积神经网络(Convolutional Neural Network）">
+                卷积神经网络(Convolutional Neural Network） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Zejian" />
+          <p class="site-author-name" itemprop="name">Zejian</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizejian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#反向传播神经网络（Back-propagation）"><span class="nav-number">1.</span> <span class="nav-text">反向传播神经网络（Back propagation）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#BP神经网络模型"><span class="nav-number">1.1.</span> <span class="nav-text">BP神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前向传播算法"><span class="nav-number">1.1.1.</span> <span class="nav-text">前向传播算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反向传播算法"><span class="nav-number">1.1.2.</span> <span class="nav-text">反向传播算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多分类（softmax）"><span class="nav-number">1.1.3.</span> <span class="nav-text">多分类（softmax）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建神经网络"><span class="nav-number">1.2.</span> <span class="nav-text">搭建神经网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#神经网络中的正则化"><span class="nav-number">1.2.1.</span> <span class="nav-text">神经网络中的正则化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络优化算法"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络优化算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度消失与梯度爆炸？？？？？"><span class="nav-number">1.3.1.</span> <span class="nav-text">梯度消失与梯度爆炸？？？？？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BP神经网络的缺陷："><span class="nav-number">1.3.2.</span> <span class="nav-text">BP神经网络的缺陷：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zejian</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

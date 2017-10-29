@@ -94,23 +94,23 @@
 
 
 
-<meta name="description" content="在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。 激活函数的性质: 非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。 可微性：当优化方法是基于梯度的时候，这个性质是必须的。  常见的激活函数常见的激活函数有：sigmoid">
+<meta name="description" content="在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。 激活函数的性质: 非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。 可微性：当优化方法是基于梯度的时候，这个性质是必须的。  常见的激活函数常见的激活函数有：sigmoid函数">
 <meta name="keywords" content="激活函数,sigmoid,tanh,ReLU">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习激活函数(Activation Function)">
 <meta property="og:url" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation Function)/index.html">
 <meta property="og:site_name" content="Zejian&#39;s Blog">
-<meta property="og:description" content="在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。 激活函数的性质: 非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。 可微性：当优化方法是基于梯度的时候，这个性质是必须的。  常见的激活函数常见的激活函数有：sigmoid">
+<meta property="og:description" content="在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。 激活函数的性质: 非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。 可微性：当优化方法是基于梯度的时候，这个性质是必须的。  常见的激活函数常见的激活函数有：sigmoid函数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation%20Function)/markdown-img-paste-20170926080536411.png">
-<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation%20Function)/markdown-img-paste-20170926080437430.png">
-<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation%20Function)/markdown-img-paste-20170926091252946.png">
-<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation%20Function)/markdown-img-paste-20170926091702440.png">
-<meta property="og:updated_time" content="2017-09-27T09:47:23.221Z">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation%20Function)/2017-09-26-机器学习激活函数(Activation%20Function">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation%20Function)/2017-09-26-机器学习激活函数(Activation%20Function">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation%20Function)/2017-09-26-机器学习激活函数(Activation%20Function">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation%20Function)/2017-09-26-机器学习激活函数(Activation%20Function">
+<meta property="og:updated_time" content="2017-10-29T13:10:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习激活函数(Activation Function)">
-<meta name="twitter:description" content="在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。 激活函数的性质: 非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。 可微性：当优化方法是基于梯度的时候，这个性质是必须的。  常见的激活函数常见的激活函数有：sigmoid">
-<meta name="twitter:image" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation%20Function)/markdown-img-paste-20170926080536411.png">
+<meta name="twitter:description" content="在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。 激活函数的性质: 非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。 可微性：当优化方法是基于梯度的时候，这个性质是必须的。  常见的激活函数常见的激活函数有：sigmoid函数">
+<meta name="twitter:image" content="http://lizejian.github.io.com/2017/09/26/机器学习激活函数(Activation%20Function)/2017-09-26-机器学习激活函数(Activation%20Function">
 
 
 
@@ -382,10 +382,7 @@
       
 
       
-        <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<p>在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。</p>
+        <p>在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。</p>
 <h2 id="激活函数的性质"><a href="#激活函数的性质" class="headerlink" title="激活函数的性质:"></a>激活函数的性质:</h2><ul>
 <li>非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。</li>
 <li>可微性：当优化方法是基于梯度的时候，这个性质是必须的。</li>
@@ -394,7 +391,7 @@
 <h3 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h3><p>数学形式</p>
 <p>$$sigmoid(x) = \frac{1}{1+e^{-x}}$$</p>
 <p>形状</p>
-<img src="/2017/09/26/机器学习激活函数(Activation%20Function)/markdown-img-paste-20170926080536411.png" alt="sigmoid函数" title="sigmoid函数">
+<p><img src="2017-09-26-机器学习激活函数(Activation Function" alt="sigmoid函数">/markdown-img-paste-20170926080536411.png)</p>
 <p>描述</p>
 <ul>
 <li>结果为[0,1]，<strong>均值为0.5</strong>。</li>
@@ -410,7 +407,7 @@
 </ul>
 <h3 id="tanh函数"><a href="#tanh函数" class="headerlink" title="tanh函数"></a>tanh函数</h3><p>数学形式<br>$$tanh(x)=2sigmoid(2x)-1=\frac{2}{1+e^{-2x}}-1=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}$$</p>
 <p>形状</p>
-<img src="/2017/09/26/机器学习激活函数(Activation%20Function)/markdown-img-paste-20170926080437430.png" alt="tanh函数" title="tanh函数">
+<p><img src="2017-09-26-机器学习激活函数(Activation Function" alt="tanh函数">/markdown-img-paste-20170926080437430.png)</p>
 <p>描述</p>
 <ul>
 <li>结果为[-1,1]，均值为0。</li>
@@ -425,7 +422,7 @@
 </ul>
 <h3 id="ReLU函数"><a href="#ReLU函数" class="headerlink" title="ReLU函数"></a>ReLU函数</h3><p>数学形式<br>$$ReLU(x) = max(0,x)$$</p>
 <p>形状</p>
-<img src="/2017/09/26/机器学习激活函数(Activation%20Function)/markdown-img-paste-20170926091252946.png" alt="tanh函数" title="tanh函数">
+<p><img src="2017-09-26-机器学习激活函数(Activation Function" alt="ReLU函数">/markdown-img-paste-20170926091252946.png)</p>
 <p>描述</p>
 <ul>
 <li>结果为[0,∞]。</li>
@@ -441,9 +438,10 @@
 <li><strong>硬饱和</strong>。在小于0的区域其梯度为0。</li>
 <li><strong>神经元死亡</strong>。当输入落入小于0的区域时，其梯度等于0，导致对应权重无法更新。<strong>减小学习速率可以缓解</strong>。</li>
 </ul>
-<h3 id="Leaky-ReLU函数"><a href="#Leaky-ReLU函数" class="headerlink" title="Leaky-ReLU函数"></a>Leaky-ReLU函数</h3><p>数学形式<br>$$Leaky-ReLU(x) = max(\alpha x,x),\alpha = 0.01$$</p>
+<h3 id="Leaky-ReLU函数"><a href="#Leaky-ReLU函数" class="headerlink" title="Leaky-ReLU函数"></a>Leaky-ReLU函数</h3><p>数学形式</p>
+<p>$Leaky-ReLU(x) = max(\alpha x,x),\alpha = 0.01$</p>
 <p>形状</p>
-<img src="/2017/09/26/机器学习激活函数(Activation%20Function)/markdown-img-paste-20170926091702440.png" alt="tanh函数" title="tanh函数">
+<p><img src="2017-09-26-机器学习激活函数(Activation Function" alt="Leaky-ReLU函数">/markdown-img-paste-20170926091702440.png)</p>
 <p>描述</p>
 <ul>
 <li>结果为[-∞,∞]。</li>
@@ -587,7 +585,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
