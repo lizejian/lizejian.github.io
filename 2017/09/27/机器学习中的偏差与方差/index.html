@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="方差,偏差,过拟合,欠拟合," />
 
 
 
@@ -95,21 +95,22 @@
 
 
 <meta name="description" content="泛化误差模型的泛化能力（generalization ability）是指模型对未知数据的预测能力。同理，泛化误差（generalization error）是指模型对未知数据预测的误差。 泛化误差可分为：随机误差（random error）、偏差（bias）和方差（variance）。其中，随机误差是数据本身的噪声带来的，无法避免。 本文主要讲偏差和方差。 偏差与方差偏差表示参数与真实参数之间的">
+<meta name="keywords" content="方差,偏差,过拟合,欠拟合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习中的偏差与方差">
 <meta property="og:url" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/index.html">
 <meta property="og:site_name" content="Zejian&#39;s Blog">
 <meta property="og:description" content="泛化误差模型的泛化能力（generalization ability）是指模型对未知数据的预测能力。同理，泛化误差（generalization error）是指模型对未知数据预测的误差。 泛化误差可分为：随机误差（random error）、偏差（bias）和方差（variance）。其中，随机误差是数据本身的噪声带来的，无法避免。 本文主要讲偏差和方差。 偏差与方差偏差表示参数与真实参数之间的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/biasandvariance.png">
-<meta property="og:image" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/overfitandunderfit.png">
-<meta property="og:image" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/error.jpg">
-<meta property="og:image" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/wuenda.png">
-<meta property="og:updated_time" content="2017-09-27T01:12:50.000Z">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/2017-09-27-机器学习中的偏差与方差/biasandvariance.png">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/2017-09-27-机器学习中的偏差与方差/overfitandunderfit.png">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/2017-09-27-机器学习中的偏差与方差/error.jpg">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/2017-09-27-机器学习中的偏差与方差/wuenda.png">
+<meta property="og:updated_time" content="2017-10-29T13:29:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习中的偏差与方差">
 <meta name="twitter:description" content="泛化误差模型的泛化能力（generalization ability）是指模型对未知数据的预测能力。同理，泛化误差（generalization error）是指模型对未知数据预测的误差。 泛化误差可分为：随机误差（random error）、偏差（bias）和方差（variance）。其中，随机误差是数据本身的噪声带来的，无法避免。 本文主要讲偏差和方差。 偏差与方差偏差表示参数与真实参数之间的">
-<meta name="twitter:image" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/biasandvariance.png">
+<meta name="twitter:image" content="http://lizejian.github.io.com/2017/09/27/机器学习中的偏差与方差/2017-09-27-机器学习中的偏差与方差/biasandvariance.png">
 
 
 
@@ -327,6 +328,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -365,11 +388,11 @@
 <h2 id="偏差与方差"><a href="#偏差与方差" class="headerlink" title="偏差与方差"></a>偏差与方差</h2><p>偏差表示参数与真实参数之间的误差。<br>$bias(\hat{\theta}<em>{m})=\mathcal{E}(\hat{\theta}</em>{m})-\theta$<br>当模型做出与实际情况不符的假设时就会引起错误（通常是模型太简单），就会导致偏差大，即对数据<strong>欠拟合</strong>。</p>
 <p>方差表示模型在拟合不同的数据时，参数的变化程度。$Var(\hat{\theta})$<br>​在理想情况下，同一来源的数据应满足独立同分布。那么针对同一问题，无论使用哪个数据集，所建立的模型应当是相同的。从公式的角度来说，就是目标方程的系数和常数项应当是近似相同的。但如果模型太复杂，那么随着训练数据集的不同，参数变化太大时，就会导致方差大，即对数据<strong>过拟合</strong>。</p>
 <p>下图能够很好地解释偏差和方差。</p>
-<img src="/2017/09/27/机器学习中的偏差与方差/biasandvariance.png" alt="biasandvariance.png" title="">
+<p><img src="2017-09-27-机器学习中的偏差与方差/biasandvariance.png" alt=""></p>
 <p>在一个实际系统中，偏差与方差往往不能兼得。如果注重模型在训练数据上的准确度，忽视对模型的先验知识，这样可以减少模型的偏差，但会降低模型的泛化能力，造成方差增大。如果注重对模型的先验知识，对模型增加更多的限制，这样可以降低模型的方差，但也会降低模型在训练数据上的准确度，造成偏差增大。</p>
 <h2 id="Trade-Off"><a href="#Trade-Off" class="headerlink" title="Trade-Off"></a>Trade-Off</h2><p>方差与偏差之间的trade-off是机器学习的重要主题。</p>
 <p>模型误差是偏差与方差的加和，因此可以绘制下图。</p>
-<img src="/2017/09/27/机器学习中的偏差与方差/overfitandunderfit.png" alt="overfitandunderfit.png" title="">
+<p><img src="2017-09-27-机器学习中的偏差与方差/overfitandunderfit.png" alt=""></p>
 <p>从图中可以看出</p>
 <ul>
 <li><p>当模型太简单时，拟合能力不够强，偏差比较大；由于拟合能力不强, 数据集的扰动也无法使模型产生显著变化，方差较小。模型欠拟合。</p>
@@ -381,7 +404,7 @@
 </ul>
 <p>Total Error曲线的拐点，是模型的最优位置。</p>
 <p>将数据分为训练集和验证集，可以绘制出下图。</p>
-<img src="/2017/09/27/机器学习中的偏差与方差/error.jpg" alt="error.jpg" title="">
+<p><img src="2017-09-27-机器学习中的偏差与方差/error.jpg" alt=""></p>
 <p>从图中可以看出</p>
 <ul>
 <li>当模型太简单时，对训练集和验证集的预测误差较大，模型高偏差，欠拟合。</li>
@@ -389,7 +412,7 @@
 <li>当模型太复杂时，对训练集过分拟合，训练误差进一步减小。然而泛化能力不高，验证集误差较大，模型高方差，过拟合。</li>
 </ul>
 <h2 id="如何处理欠拟合和过拟合"><a href="#如何处理欠拟合和过拟合" class="headerlink" title="如何处理欠拟合和过拟合"></a>如何处理欠拟合和过拟合</h2><p>参考吴恩达教授提供的处理模型欠拟合与过拟合的一般方法。</p>
-<img src="/2017/09/27/机器学习中的偏差与方差/wuenda.png" alt="wuenda.png" title="">
+<p><img src="2017-09-27-机器学习中的偏差与方差/wuenda.png" alt=""></p>
 <p>当模型处于欠拟合状态时，应该增加模型的复杂度。一般办法有：</p>
 <ul>
 <li>增加模型迭代次数。</li>
@@ -418,6 +441,18 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/方差/" rel="tag"># 方差</a>
+          
+            <a href="/tags/偏差/" rel="tag"># 偏差</a>
+          
+            <a href="/tags/过拟合/" rel="tag"># 过拟合</a>
+          
+            <a href="/tags/欠拟合/" rel="tag"># 欠拟合</a>
+          
+        </div>
       
 
       
@@ -528,7 +563,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -539,7 +574,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
