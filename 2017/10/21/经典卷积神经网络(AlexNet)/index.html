@@ -94,20 +94,20 @@
 
 
 
-<meta name="description" content="写在前面不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。 AlexNet网络结构/markdown-img-paste-20171017203240734.png) AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。| 操作层     | 输入尺寸        | 参数">
+<meta name="description" content="写在前面不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。 AlexNet网络结/markdown-img-paste-20171017203240734.png)AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。| 操作层     | 输入尺寸        | 参数">
 <meta name="keywords" content="CNN,MNIST,AlexNet">
 <meta property="og:type" content="article">
 <meta property="og:title" content="经典卷积神经网络（AlexNet）">
-<meta property="og:url" content="http://lizejian.github.io.com/2017/10/17/经典卷积神经网络(AlexNet)/index.html">
+<meta property="og:url" content="http://lizejian.github.io.com/2017/10/21/经典卷积神经网络(AlexNet)/index.html">
 <meta property="og:site_name" content="Zejian&#39;s Blog">
-<meta property="og:description" content="写在前面不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。 AlexNet网络结构/markdown-img-paste-20171017203240734.png) AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。| 操作层     | 输入尺寸        | 参数">
+<meta property="og:description" content="写在前面不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。 AlexNet网络结/markdown-img-paste-20171017203240734.png)AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。| 操作层     | 输入尺寸        | 参数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://lizejian.github.io.com/2017/10/17/经典卷积神经网络(AlexNet)/2017-10-17-经典卷积神经网络(AlexNet">
-<meta property="og:updated_time" content="2017-11-01T09:09:14.000Z">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/10/21/经典卷积神经网络(AlexNet)/2017-10-21-经典卷积神经网络(AlexNet">
+<meta property="og:updated_time" content="2017-11-01T09:11:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="经典卷积神经网络（AlexNet）">
-<meta name="twitter:description" content="写在前面不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。 AlexNet网络结构/markdown-img-paste-20171017203240734.png) AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。| 操作层     | 输入尺寸        | 参数">
-<meta name="twitter:image" content="http://lizejian.github.io.com/2017/10/17/经典卷积神经网络(AlexNet)/2017-10-17-经典卷积神经网络(AlexNet">
+<meta name="twitter:description" content="写在前面不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。 AlexNet网络结/markdown-img-paste-20171017203240734.png)AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。| 操作层     | 输入尺寸        | 参数">
+<meta name="twitter:image" content="http://lizejian.github.io.com/2017/10/21/经典卷积神经网络(AlexNet)/2017-10-21-经典卷积神经网络(AlexNet">
 
 
 
@@ -136,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="http://lizejian.github.io.com/2017/10/17/经典卷积神经网络(AlexNet)/"/>
+  <link rel="canonical" href="http://lizejian.github.io.com/2017/10/21/经典卷积神经网络(AlexNet)/"/>
 
 
 
@@ -285,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizejian.github.io.com/2017/10/17/经典卷积神经网络(AlexNet)/">
+    <link itemprop="mainEntityOfPage" href="http://lizejian.github.io.com/2017/10/21/经典卷积神经网络(AlexNet)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zejian">
@@ -314,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T20:19:53+08:00">
-                2017-10-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-21T20:19:53+08:00">
+                2017-10-21
               </time>
             
 
@@ -380,8 +380,7 @@
 
       
         <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>不同的卷积神经网络的区别，其实就是网络的结构不同。本文介绍最经典的CNN——AlexNet。</p>
-<h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h3><p><img src="2017-10-17-经典卷积神经网络(AlexNet" alt="">/markdown-img-paste-20171017203240734.png)</p>
-<p>AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。<br>| 操作层     | 输入尺寸        | 参数                                     | 输出尺寸        |<br>| :—— | :———- | :————————————- | :———- |<br>| 输入层     | [227x227x3] |                                        | [227x227x3] |<br>| 卷积层1    | [227x227x3] | 核[11,11,3,96] strides=[1,4,4,1]        | [55x55x96]  |<br>| 池化层1    | [55x55x96]  | 核[1,3,3,1] strides=[1,2,2,1]           | [27x27x96]  |<br>| 卷积层2    | [27x27x96]  | 核[5,5,96,256] strides=[1,1,1,1] pad=2] | [27x27x256] |<br>| 池化层2    | [27x27x256] | 核[1,3,3,1] strides=[1,2,2,1]           | [13x13x256] |<br>| 卷积层3    | [13x13x256] | 核[3,3,256,384] strides=[1,1,1,1] pad=1 | [13x13x384] |<br>| 卷积层4    | [13x13x384] | 核[3,3,384,384] strides=[1,1,1,1] pad=1 | [13x13x384] |<br>| 卷积层5    | [13x13x384] | 核[3,3,384,256] strides=[1,1,1,1] pad=1 | [13x13x256] |<br>| 池化层3    | [13x13x256] | 核[1,3,3,1] strides=[1,2,2,1] pad=1     | [6x6x256]   |<br>| 全连接层1   | [6x6x256]   | [4096]                                 | [4096]      |<br>| 全连接层2   | [4096]      | [4096]                                 | [4096]      |<br>| softmax | [4096]      | [1000]                                 | [1000]      |</p>
+<h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a>AlexNet</h2><h3 id="网络结-markdown-img-paste-20171017203240734-png"><a href="#网络结-markdown-img-paste-20171017203240734-png" class="headerlink" title="网络结/markdown-img-paste-20171017203240734.png)"></a>网络结<img src="2017-10-21-经典卷积神经网络(AlexNet" alt="">/markdown-img-paste-20171017203240734.png)</h3><p>AlexNet总共包括8层，其中前5层卷积层，后面3层是全连接层（图中尺寸有问题）。<br>| 操作层     | 输入尺寸        | 参数                                     | 输出尺寸        |<br>| :—— | :———- | :————————————- | :———- |<br>| 输入层     | [227x227x3] |                                        | [227x227x3] |<br>| 卷积层1    | [227x227x3] | 核[11,11,3,96] strides=[1,4,4,1]        | [55x55x96]  |<br>| 池化层1    | [55x55x96]  | 核[1,3,3,1] strides=[1,2,2,1]           | [27x27x96]  |<br>| 卷积层2    | [27x27x96]  | 核[5,5,96,256] strides=[1,1,1,1] pad=2] | [27x27x256] |<br>| 池化层2    | [27x27x256] | 核[1,3,3,1] strides=[1,2,2,1]           | [13x13x256] |<br>| 卷积层3    | [13x13x256] | 核[3,3,256,384] strides=[1,1,1,1] pad=1 | [13x13x384] |<br>| 卷积层4    | [13x13x384] | 核[3,3,384,384] strides=[1,1,1,1] pad=1 | [13x13x384] |<br>| 卷积层5    | [13x13x384] | 核[3,3,384,256] strides=[1,1,1,1] pad=1 | [13x13x256] |<br>| 池化层3    | [13x13x256] | 核[1,3,3,1] strides=[1,2,2,1] pad=1     | [6x6x256]   |<br>| 全连接层1   | [6x6x256]   | [4096]                                 | [4096]      |<br>| 全连接层2   | [4096]      | [4096]                                 | [4096]      |<br>| softmax | [4096]      | [1000]                                 | [1000]      |</p>
 <h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
 <li>针对网络架构:<ul>
 <li>使用ReLU作为激活函数，收敛速度快，并验证其效果在较深的网络要优于Sigmoid。</li>
@@ -435,8 +434,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/17/深度模型中的优化/" rel="next" title="深度模型中的优化">
-                <i class="fa fa-chevron-left"></i> 深度模型中的优化
+              <a href="/2017/10/19/卷积神经网络(Convolutional Neural Network)/" rel="next" title="卷积神经网络(Convolutional Neural Network）">
+                <i class="fa fa-chevron-left"></i> 卷积神经网络(Convolutional Neural Network）
               </a>
             
           </div>
@@ -445,8 +444,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/19/卷积神经网络(Convolutional Neural Network)/" rel="prev" title="卷积神经网络(Convolutional Neural Network）">
-                卷积神经网络(Convolutional Neural Network） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/26/git的基本命令/" rel="prev" title="git的基本命令">
+                git的基本命令 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -594,7 +593,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet"><span class="nav-number">2.</span> <span class="nav-text">AlexNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络结构"><span class="nav-number">2.1.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet-应用-MNIST"><span class="nav-number">3.</span> <span class="nav-text">AlexNet 应用 MNIST</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet"><span class="nav-number">2.</span> <span class="nav-text">AlexNet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络结-markdown-img-paste-20171017203240734-png"><span class="nav-number">2.1.</span> <span class="nav-text">网络结/markdown-img-paste-20171017203240734.png)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.2.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AlexNet-应用-MNIST"><span class="nav-number">3.</span> <span class="nav-text">AlexNet 应用 MNIST</span></a></li></ol></div>
             
 
           </div>
