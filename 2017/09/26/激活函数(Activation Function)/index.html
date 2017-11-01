@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="激活函数,sigmoid,tanh,ReLU," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。 激活函数的性质: 非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。 可微性：当优化方法是基于梯度的时候，这个性质是必须的。  常见的激活函数常见的激活函数有：sigmoid函数、">
+<meta name="keywords" content="激活函数,sigmoid,tanh,ReLU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="激活函数(Activation Function)">
+<meta property="og:url" content="http://lizejian.github.io.com/2017/09/26/激活函数(Activation Function)/index.html">
+<meta property="og:site_name" content="Zejian&#39;s Blog">
+<meta property="og:description" content="在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。 激活函数的性质: 非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。 可微性：当优化方法是基于梯度的时候，这个性质是必须的。  常见的激活函数常见的激活函数有：sigmoid函数、">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/激活函数(Activation%20Function)/2017-09-26-激活函数(Activation%20Function">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/激活函数(Activation%20Function)/2017-09-26-激活函数(Activation%20Function">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/激活函数(Activation%20Function)/2017-09-26-激活函数(Activation%20Function">
+<meta property="og:image" content="http://lizejian.github.io.com/2017/09/26/激活函数(Activation%20Function)/2017-09-26-激活函数(Activation%20Function">
+<meta property="og:updated_time" content="2017-10-30T09:49:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="激活函数(Activation Function)">
+<meta name="twitter:description" content="在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。 激活函数的性质: 非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。 可微性：当优化方法是基于梯度的时候，这个性质是必须的。  常见的激活函数常见的激活函数有：sigmoid函数、">
+<meta name="twitter:image" content="http://lizejian.github.io.com/2017/09/26/激活函数(Activation%20Function)/2017-09-26-激活函数(Activation%20Function">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lizejian.github.io.com/2017/09/26/激活函数(Activation Function)/"/>
+
+
+
+
+
+  <title>激活函数(Activation Function) | Zejian's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zejian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这么好的故事，你可别演砸了。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizejian.github.io.com/2017/09/26/激活函数(Activation Function)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zejian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zejian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">激活函数(Activation Function)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T13:30:36+08:00">
+                2017-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/神经网络/" itemprop="url" rel="index">
+                    <span itemprop="name">神经网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在机器学习中，尤其是神经网络中，会经常用到激活函数。本篇总结常见的激活函数及其优缺点。</p>
+<h2 id="激活函数的性质"><a href="#激活函数的性质" class="headerlink" title="激活函数的性质:"></a>激活函数的性质:</h2><ul>
+<li>非线性：激活函数一般是非线性的，用来给网络加入非线性因素，增强网络的表达能力。如果使用线性激活函数，那么线性的组合仍然是线性。即，无论网络中有多少层神经元，其结果都相当于一层神经元。</li>
+<li>可微性：当优化方法是基于梯度的时候，这个性质是必须的。</li>
+</ul>
+<h2 id="常见的激活函数"><a href="#常见的激活函数" class="headerlink" title="常见的激活函数"></a>常见的激活函数</h2><p>常见的激活函数有：sigmoid函数、tanh函数、ReLU函数、Leaky-ReLU函数</p>
+<h3 id="sigmoid函数"><a href="#sigmoid函数" class="headerlink" title="sigmoid函数"></a>sigmoid函数</h3><p>数学形式<br>$$<br>sigmoid(x) = \frac{1}{1+e^{-x}}<br>$$<br>形状</p>
+<p><img src="2017-09-26-激活函数(Activation Function" alt="sigmoid函数">/markdown-img-paste-20170926080536411.png)</p>
+<p>描述</p>
+<ul>
+<li>结果为[0,1]，<strong>均值为0.5</strong>。</li>
+</ul>
+<p>优点</p>
+<ul>
+<li><strong>结果为[0,1]</strong>。在二元分类中，常用来做输出层的激活函数。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li><strong>软饱和</strong>。当输入极大或者极小时，神经元的梯度是接近于0，处于饱和状态，网络变得很难学习。</li>
+<li><strong>偏移现象</strong>。均值为0.5，下一层神经元的输入均值不为0。</li>
+</ul>
+<h3 id="tanh函数"><a href="#tanh函数" class="headerlink" title="tanh函数"></a>tanh函数</h3><p>数学形式<br>$$<br>tanh(x)=2sigmoid(2x)-1=\frac{2}{1+e^{-2x}}-1=\frac{e^{x}-e^{-x}}{e^{x}+e^{-x}}<br>$$<br>形状</p>
+<p><img src="2017-09-26-激活函数(Activation Function" alt="tanh函数">/markdown-img-paste-20170926080437430.png)</p>
+<p>描述</p>
+<ul>
+<li>结果为[-1,1]，均值为0。</li>
+</ul>
+<p>优点</p>
+<ul>
+<li><strong>均值为0</strong>。不存在偏移现象。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li><strong>软饱和</strong>。当输入极大或者极小时，神经元的梯度是接近于0，处于饱和状态，网络变得很难学习。</li>
+</ul>
+<h3 id="ReLU函数"><a href="#ReLU函数" class="headerlink" title="ReLU函数"></a>ReLU函数</h3><p>数学形式<br>$$<br>ReLU(x) = max(0,x)<br>$$<br>形状</p>
+<p><img src="2017-09-26-激活函数(Activation Function" alt="ReLU函数">/markdown-img-paste-20170926091252946.png)</p>
+<p>描述</p>
+<ul>
+<li>结果为[0,∞]。</li>
+</ul>
+<p>优点</p>
+<ul>
+<li><strong>计算速度快</strong>。ReLU只需要一个阈值就可以得到激活值，计算简单。</li>
+<li><strong>收敛速度快</strong>。在大于0的区域其梯度恒为1，不存在饱和现象。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li><strong>偏移现象</strong>。均值不为0。</li>
+<li><strong>硬饱和</strong>。在小于0的区域其梯度为0。</li>
+<li><strong>神经元死亡</strong>。当输入落入小于0的区域时，其梯度等于0，导致对应权重无法更新。<strong>减小学习速率可以缓解</strong>。</li>
+</ul>
+<h3 id="Leaky-ReLU函数"><a href="#Leaky-ReLU函数" class="headerlink" title="Leaky-ReLU函数"></a>Leaky-ReLU函数</h3><p>数学形式<br>$$<br>Leaky-ReLU(x) = max(\alpha x,x),\alpha = 0.01<br>$$<br>形状</p>
+<p><img src="2017-09-26-激活函数(Activation Function" alt="Leaky-ReLU函数">/markdown-img-paste-20170926091702440.png)</p>
+<p>描述</p>
+<ul>
+<li>结果为[-∞,∞]。</li>
+</ul>
+<p>优点</p>
+<ul>
+<li><strong>计算速度快</strong>。ReLU只需要一个阈值就可以得到激活值，计算简单。</li>
+<li><strong>收敛速度快</strong>。在大于0的区域其梯度恒为1，不存在饱和现象。</li>
+<li><strong>解决了神经元死亡问题</strong>。在小于0的区域，存在梯度不为0。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>不够成熟，不常用。</li>
+</ul>
+<h2 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h2><ul>
+<li>sigmoid函数常用于二元分类神经网络的输出层。</li>
+<li>ReLU函数常用于神经网络的隐藏层，使用时应注意将learning-rate设置小一点，避免神经元死亡。</li>
+</ul>
+<h3 id="硬饱和与软饱和"><a href="#硬饱和与软饱和" class="headerlink" title="硬饱和与软饱和"></a><strong>硬饱和与软饱和</strong></h3><ul>
+<li>硬饱和。函数的导数等于0</li>
+<li>软饱和。函数的导数趋近于0</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/激活函数/" rel="tag"># 激活函数</a>
+          
+            <a href="/tags/sigmoid/" rel="tag"># sigmoid</a>
+          
+            <a href="/tags/tanh/" rel="tag"># tanh</a>
+          
+            <a href="/tags/ReLU/" rel="tag"># ReLU</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/27/偏差与方差/" rel="prev" title="机器学习中的偏差与方差">
+                机器学习中的偏差与方差 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Zejian" />
+          <p class="site-author-name" itemprop="name">Zejian</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizejian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数的性质"><span class="nav-number">1.</span> <span class="nav-text">激活函数的性质:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的激活函数"><span class="nav-number">2.</span> <span class="nav-text">常见的激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sigmoid函数"><span class="nav-number">2.1.</span> <span class="nav-text">sigmoid函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tanh函数"><span class="nav-number">2.2.</span> <span class="nav-text">tanh函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReLU函数"><span class="nav-number">2.3.</span> <span class="nav-text">ReLU函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Leaky-ReLU函数"><span class="nav-number">2.4.</span> <span class="nav-text">Leaky-ReLU函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何选择"><span class="nav-number">3.</span> <span class="nav-text">如何选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#硬饱和与软饱和"><span class="nav-number">3.1.</span> <span class="nav-text">硬饱和与软饱和</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zejian</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>
