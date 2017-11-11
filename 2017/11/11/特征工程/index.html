@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="特征缩放,特征选择,PCA," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="特征工程是什么？有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。那特征工程到底是什么呢？顾名思义，其本质是一项工程活动，目的是最大限度地从原始数据中提取特征以供算法和模型使用。通过总结和归纳，人们认为特征工程包括以下方面：  数据预处理通过特征提取，我们能得到未经处理的特征，这时的特征可能有以下问题：  不属于同一量纲：即特征的规格不一样，不能够放在一">
+<meta name="keywords" content="特征缩放,特征选择,PCA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="特征工程">
+<meta property="og:url" content="http://lizejian.github.io.com/2017/11/11/特征工程/index.html">
+<meta property="og:site_name" content="Zejian&#39;s Blog">
+<meta property="og:description" content="特征工程是什么？有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。那特征工程到底是什么呢？顾名思义，其本质是一项工程活动，目的是最大限度地从原始数据中提取特征以供算法和模型使用。通过总结和归纳，人们认为特征工程包括以下方面：  数据预处理通过特征提取，我们能得到未经处理的特征，这时的特征可能有以下问题：  不属于同一量纲：即特征的规格不一样，不能够放在一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic3.zhimg.com/20e4522e6104ad71fc543cc21f402b36_r.jpg">
+<meta property="og:updated_time" content="2017-11-11T14:20:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="特征工程">
+<meta name="twitter:description" content="特征工程是什么？有这么一句话在业界广泛流传：数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已。那特征工程到底是什么呢？顾名思义，其本质是一项工程活动，目的是最大限度地从原始数据中提取特征以供算法和模型使用。通过总结和归纳，人们认为特征工程包括以下方面：  数据预处理通过特征提取，我们能得到未经处理的特征，这时的特征可能有以下问题：  不属于同一量纲：即特征的规格不一样，不能够放在一">
+<meta name="twitter:image" content="https://pic3.zhimg.com/20e4522e6104ad71fc543cc21f402b36_r.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://lizejian.github.io.com/2017/11/11/特征工程/"/>
+
+
+
+
+
+  <title>特征工程 | Zejian's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zejian's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">这么好的故事，你可别演砸了。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://lizejian.github.io.com/2017/11/11/特征工程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zejian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zejian's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">特征工程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-11T21:31:09+08:00">
+                2017-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="特征工程是什么？"><a href="#特征工程是什么？" class="headerlink" title="特征工程是什么？"></a>特征工程是什么？</h1><p>有这么一句话在业界广泛流传：<strong>数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已</strong>。那特征工程到底是什么呢？顾名思义，其本质是一项工程活动，目的是最大限度地从原始数据中提取特征以供算法和模型使用。通过总结和归纳，人们认为特征工程包括以下方面：</p>
+<p><img src="https://pic3.zhimg.com/20e4522e6104ad71fc543cc21f402b36_r.jpg" alt=""></p>
+<h1 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h1><p>通过特征提取，我们能得到未经处理的特征，这时的特征可能有以下问题：</p>
+<ul>
+<li>不属于同一量纲：即特征的规格不一样，不能够放在一起比较。无量纲化可以解决这一问题。</li>
+<li>信息冗余：对于某些定量特征，其包含的有效信息为区间划分，例如学习成绩，假若只关心“及格”或不“及格”，那么需要将定量的考分，转换成“1”和“0”表示及格和未及格。二值化可以解决这一问题。</li>
+<li>定性特征不能直接使用：某些机器学习算法和模型只能接受定量特征的输入，那么需要将定性特征转换为定量特征。最简单的方式是为每一种定性值指定一个定量值，但是这种方式过于灵活，增加了调参的工作。通常使用哑编码的方式将定性特征转换为定量特征：假设有N种定性值，则将这一个特征扩展为N种特征，当原始特征值为第i种定性值时，第i个扩展特征赋值为1，其他扩展特征赋值为0。哑编码的方式相比直接指定的方式，不用增加调参的工作，对于线性模型来说，使用哑编码后的特征可达到非线性的效果。</li>
+<li>存在缺失值：缺失值需要补充。</li>
+<li>信息利用率低：不同的机器学习算法和模型对数据中信息的利用是不同的，之前提到在线性模型中，使用对定性特征哑编码可以达到非线性的效果。类似地，对定量变量多项式化，或者进行其他的转换，都能达到非线性的效果。</li>
+</ul>
+<h2 id="无量纲化"><a href="#无量纲化" class="headerlink" title="无量纲化"></a>无量纲化</h2><p>无量纲化使不同规格的数据转换到同一规格。常见的无量纲化方法有标准化和区间缩放法。标准化的前提是特征值服从正态分布，标准化后，其转换成标准正态分布。区间缩放法利用了边界值信息，将特征的取值区间缩放到某个特点的范围，例如[0, 1]等。</p>
+<h3 id="标准化"><a href="#标准化" class="headerlink" title="标准化"></a>标准化</h3><p>标准化需要计算特征的均值和标准差，公式表达为：<br>$$<br>x’=\frac{x-\bar{X}}{\sigma}<br>$$</p>
+<h3 id="区间缩放法"><a href="#区间缩放法" class="headerlink" title="区间缩放法"></a>区间缩放法</h3><p>区间缩放法的思路有多种，常见的一种为利用两个最值进行缩放，公式表达为：<br>$$<br>x’=\frac{x-Min}{Max-Min}<br>$$</p>
+<h3 id="标准化与归一化的区别"><a href="#标准化与归一化的区别" class="headerlink" title="标准化与归一化的区别"></a>标准化与归一化的区别</h3><p>简单来说，标准化是依照特征矩阵的列处理数据，其通过求z-score的方法，将样本的特征值转换到同一量纲下。归一化是依照特征矩阵的行处理数据，其目的在于样本向量在点乘运算或其他核函数计算相似性时，拥有统一的标准，也就是说都转化为“单位向量”。规则为l2的归一化公式如下：<br>$$<br>x’=\frac{x}{\sqrt{\sum{x_i^2}}}<br>$$</p>
+<h2 id="对定量特征二值化"><a href="#对定量特征二值化" class="headerlink" title="对定量特征二值化"></a>对定量特征二值化</h2><p>定量特征二值化的核心在于设定一个阈值，大于阈值的赋值为1，小于等于阈值的赋值为0。</p>
+<h2 id="对定性特征哑编码"><a href="#对定性特征哑编码" class="headerlink" title="对定性特征哑编码"></a>对定性特征哑编码</h2><p>通常使用哑编码的方式将定性特征转换为定量特征：假设有N种定性值，则将这一个特征扩展为N种特征，当原始特征值为第i种定性值时，第i个扩展特征赋值为1，其他扩展特征赋值为0。</p>
+<h2 id="处理缺失值"><a href="#处理缺失值" class="headerlink" title="处理缺失值"></a>处理缺失值</h2><p>缺失值的处理有很多种方法，直接赋值、平均数、众数、K最近邻平均数等，需要根据不同的业务场景、数据含义及特征进行选择。</p>
+<h2 id="数据变换"><a href="#数据变换" class="headerlink" title="数据变换"></a>数据变换</h2><p>常见的数据变换有基于多项式的、基于指数的、基于对数的。不过并不是所有的特征都要进行多项式变换，否则会造成维度灾难。至于哪些类型的属性需要进行多项式变换，还没有总结出统一的法则。对于某些偏度较大的属性，可采用基于对数的变换方法来降低数据偏度对结果的影响。</p>
+<h1 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h1><p>当数据预处理完成后，我们需要选择有意义的特征输入机器学习的算法和模型进行训练。通常来说，从两个方面考虑来选择特征：</p>
+<ul>
+<li>特征是否发散：如果一个特征不发散，例如方差接近于0，也就是说样本在这个特征上基本上没有差异，这个特征对于样本的区分并没有什么用。</li>
+<li>特征与目标的相关性：这点比较显见，与目标相关性高的特征，应当优选选择。除方差法外，本文介绍的其他方法均从相关性考虑。</li>
+</ul>
+<p>根据特征选择的形式又可以将特征选择方法分为3种：</p>
+<ul>
+<li>Filter：过滤法，按照发散性或者相关性对各个特征进行评分，设定阈值或者待选择阈值的个数，选择特征。</li>
+<li>Wrapper：包装法，根据目标函数（通常是预测效果评分），每次选择若干特征，或者排除若干特征。</li>
+<li>Embedded：嵌入法，先使用某些机器学习的算法和模型进行训练，得到各个特征的权值系数，根据系数从大到小选择特征。类似于Filter方法，但是是通过训练来确定特征的优劣。</li>
+</ul>
+<h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><h3 id="方差选择法"><a href="#方差选择法" class="headerlink" title="方差选择法"></a>方差选择法</h3><p>使用方差选择法，先要计算各个特征的方差，然后根据阈值，选择方差大于阈值的特征。</p>
+<h3 id="相关系数法"><a href="#相关系数法" class="headerlink" title="相关系数法"></a>相关系数法</h3><p>使用相关系数法，先要计算各个特征对目标值的相关系数以及相关系数的P值</p>
+<h3 id="卡方检验"><a href="#卡方检验" class="headerlink" title="卡方检验"></a>卡方检验</h3><p>经典的卡方检验是检验定性自变量对定性因变量的相关性。假设自变量有N种取值，因变量有M种取值，考虑自变量等于i且因变量等于j的样本频数的观察值与期望的差距，构建统计量：</p>
+<p>　这个统计量的含义简而言之就是自变量对因变量的相关性</p>
+<h2 id="Wrapper"><a href="#Wrapper" class="headerlink" title="Wrapper"></a>Wrapper</h2><p>递归消除特征法使用一个基模型来进行多轮训练，每轮训练后，消除若干权值系数的特征，再基于新的特征集进行下一轮训练。</p>
+<h2 id="Embedded"><a href="#Embedded" class="headerlink" title="Embedded"></a>Embedded</h2><h3 id="基于惩罚项的特征选择法"><a href="#基于惩罚项的特征选择法" class="headerlink" title="基于惩罚项的特征选择法"></a>基于惩罚项的特征选择法</h3><p>使用带惩罚项的基模型，比如在回归问题里经典的Lasso，筛选出系数不为0的特征。<br>L1惩罚项降维的原理在于保留多个对目标值具有同等相关性的特征中的一个，所以没选到的特征不代表不重要。故，可结合L2惩罚项来优化。</p>
+<h3 id="基于树模型的特征选择法"><a href="#基于树模型的特征选择法" class="headerlink" title="基于树模型的特征选择法"></a>基于树模型的特征选择法</h3><p>树模型中GBDT也可用来作为基模型进行特征选择</p>
+<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><p>特征选择完成后，可以直接训练模型了，但是可能由于特征矩阵过大，导致计算量大，训练时间长的问题，因此降低特征矩阵维度也是必不可少的。常见的降维方法除了以上提到的基于L1惩罚项的模型以外，另外还有主成分分析法（PCA）和线性判别分析（LDA），线性判别分析本身也是一个分类模型。PCA和LDA有很多的相似点，其本质是要将原始的样本映射到维度更低的样本空间中，但是PCA和LDA的映射目标不一样：PCA是为了让映射后的样本具有最大的发散性；而LDA是为了让映射后的样本有最好的分类性能。所以说PCA是一种无监督的降维方法，而LDA是一种有监督的降维方法。</p>
+<p>参考</p>
+<p><a href="http://www.cnblogs.com/jasonfreak/p/5448385.html" target="_blank" rel="external">http://www.cnblogs.com/jasonfreak/p/5448385.html</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/特征缩放/" rel="tag"># 特征缩放</a>
+          
+            <a href="/tags/特征选择/" rel="tag"># 特征选择</a>
+          
+            <a href="/tags/PCA/" rel="tag"># PCA</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/08/集成学习(Ensemble Learning)/" rel="next" title="集成学习法(Ensemble Learning)">
+                <i class="fa fa-chevron-left"></i> 集成学习法(Ensemble Learning)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Zejian" />
+          <p class="site-author-name" itemprop="name">Zejian</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/lizejian" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特征工程是什么？"><span class="nav-number">1.</span> <span class="nav-text">特征工程是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据预处理"><span class="nav-number">2.</span> <span class="nav-text">数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无量纲化"><span class="nav-number">2.1.</span> <span class="nav-text">无量纲化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标准化"><span class="nav-number">2.1.1.</span> <span class="nav-text">标准化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#区间缩放法"><span class="nav-number">2.1.2.</span> <span class="nav-text">区间缩放法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准化与归一化的区别"><span class="nav-number">2.1.3.</span> <span class="nav-text">标准化与归一化的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对定量特征二值化"><span class="nav-number">2.2.</span> <span class="nav-text">对定量特征二值化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对定性特征哑编码"><span class="nav-number">2.3.</span> <span class="nav-text">对定性特征哑编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理缺失值"><span class="nav-number">2.4.</span> <span class="nav-text">处理缺失值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据变换"><span class="nav-number">2.5.</span> <span class="nav-text">数据变换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特征选择"><span class="nav-number">3.</span> <span class="nav-text">特征选择</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Filter"><span class="nav-number">3.1.</span> <span class="nav-text">Filter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方差选择法"><span class="nav-number">3.1.1.</span> <span class="nav-text">方差选择法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关系数法"><span class="nav-number">3.1.2.</span> <span class="nav-text">相关系数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卡方检验"><span class="nav-number">3.1.3.</span> <span class="nav-text">卡方检验</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wrapper"><span class="nav-number">3.2.</span> <span class="nav-text">Wrapper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Embedded"><span class="nav-number">3.3.</span> <span class="nav-text">Embedded</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于惩罚项的特征选择法"><span class="nav-number">3.3.1.</span> <span class="nav-text">基于惩罚项的特征选择法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于树模型的特征选择法"><span class="nav-number">3.3.2.</span> <span class="nav-text">基于树模型的特征选择法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#降维"><span class="nav-number">4.</span> <span class="nav-text">降维</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zejian</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -110,7 +110,7 @@
 <meta property="og:image" content="http://lizejian.github.io.com/2017/10/19/卷积神经网络(Convolutional%20Neural%20Network)/2017-10-19-卷积神经网络(Convolutional%20Neural%20Network">
 <meta property="og:image" content="http://lizejian.github.io.com/2017/10/19/卷积神经网络(Convolutional%20Neural%20Network)/2017-10-19-卷积神经网络(Convolutional%20Neural%20Network">
 <meta property="og:image" content="http://lizejian.github.io.com/2017/10/19/卷积神经网络(Convolutional%20Neural%20Network)/2017-10-19-卷积神经网络(Convolutional%20Neural%20Network">
-<meta property="og:updated_time" content="2017-11-01T09:09:06.000Z">
+<meta property="og:updated_time" content="2017-11-11T14:41:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卷积神经网络(Convolutional Neural Network）">
 <meta name="twitter:description" content="卷积神经网络卷积神经网络 (Convolutional Neural Network, CNN)，是一种专门用来处理具有网格结构数据的神经网络。例如时间序列数据(时间轴上的一维网格)和图像数据(二维的像素网格)。 CNN作为一个深度学习架构被提出的最初诉求，是降低对图像数据预处理的要求，以及避免复杂的特征工程。CNN可以直接使用图像作为输入，减少了许多特征提取的手续。CNN的最大特点在于卷积的权值">
@@ -388,7 +388,7 @@
       
         <h1 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h1><p>卷积神经网络 (Convolutional Neural Network, CNN)，是一种专门用来处理具有网格结构数据的神经网络。例如时间序列数据(时间轴上的一维网格)和图像数据(二维的像素网格)。</p>
 <p>CNN作为一个深度学习架构被提出的最初诉求，是降低对图像数据预处理的要求，以及避免复杂的特征工程。CNN可以直接使用图像作为输入，减少了许多特征提取的手续。CNN的最大特点在于卷积的权值共享结构，大幅度减少神经网络的参数，同时防止了过拟合。</p>
-<h1 id="卷积神经网络结构）"><a href="#卷积神经网络结构）" class="headerlink" title="卷积神经网络结构）"></a>卷积神经网络结构）</h1><p><img src="2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-2017101621075175.png)</p>
+<h1 id="卷积神经网络结构"><a href="#卷积神经网络结构" class="headerlink" title="卷积神经网络结构"></a>卷积神经网络结构</h1><p><img src="/2017/10/19/卷积神经网络(Convolutional Neural Network)/2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-2017101621075175.png)</p>
 <p>一般来说，卷积神经网络主要由以下结构组成:</p>
 <h2 id="输入层"><a href="#输入层" class="headerlink" title="输入层"></a>输入层</h2><p>输入层是整个神经网络的输入，一般为图片的像素矩阵(一般为三维矩阵，即像素x像素x通道)</p>
 <h2 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h2><p>卷积层的作用是从输入层中抽象出更高的特征。一般流程如下：</p>
@@ -401,7 +401,7 @@
 </li>
 </ol>
 <h3 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h3><p>图像处理中的卷积计算，依赖于卷积核Kernel，而卷积核就是一个滤波器，卷积核与输入信号做加权叠加得到输出。</p>
-<p><img src="2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-20171016211502468.png)<br><img src="2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/20170719111641148.gif)</p>
+<p><img src="/2017/10/19/卷积神经网络(Convolutional Neural Network)/2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-20171016211502468.png)<br><img src="/2017/10/19/卷积神经网络(Convolutional Neural Network)/2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/20170719111641148.gif)</p>
 <p>卷积参数（以上图为例）</p>
 <ul>
 <li>输入尺寸4x4</li>
@@ -411,7 +411,7 @@
 </ul>
 <p>可以发现，只要卷积核的尺寸不是1x1,那么输出尺寸必定会小于输入尺寸大小。而在实际图片处理过程中，很多时候需要保持图像的大小不变。为了保持输入和输出尺寸一致，同时也有卷积的效果，我们对输入图片的外圈做填充操作。</p>
 <p>因此，引入新的参数padding，即在输入的外圈补零的圈数(数字零对卷积贡献为零,不会产生额外的偏差)。</p>
-<p><img src="2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/20170719114528262.gif)</p>
+<p><img src="/2017/10/19/卷积神经网络(Convolutional Neural Network)/2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/20170719114528262.gif)</p>
 <p>这里给出输入尺寸、输出尺寸、滤波器尺寸、stride和padding的关系:</p>
 <p>输入图片的尺寸大小W1 x H1</p>
 <p>卷积核(又称滤波器，以下都称滤波器)的大小F x F</p>
@@ -427,19 +427,19 @@
 </li>
 </ul>
 <p>权值共享与传统的全连接的区别如下图：</p>
-<p><img src="2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-20171016214052344.png)</p>
+<p><img src="/2017/10/19/卷积神经网络(Convolutional Neural Network)/2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-20171016214052344.png)</p>
 <h3 id="多卷积核"><a href="#多卷积核" class="headerlink" title="多卷积核"></a>多卷积核</h3><p>在每一个卷积层中，会使用多个卷积核运算。这是因为每一个卷积核滤波得到的图像就是一类特征的映射，使用多个卷积核，就能提供多个方向上的图像特征，可以从图像中抽象出有效而丰富的高阶特征。</p>
-<p><img src="2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-20171016214315791.png)</p>
+<p><img src="/2017/10/19/卷积神经网络(Convolutional Neural Network)/2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-20171016214315791.png)</p>
 <h2 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h2><p>池化层可以非常有效地缩小图片的尺寸，减少最后全连接层的参数，保留最显著的特征，提升模型的畸变容忍能力，防止过拟合。</p>
 <p>池化层前向传播过程类似于卷积层，是通过移动一个类似滤波器的结构完成的。与卷积层不同的是，池化层的滤波器计算不是加权求和，而且求区域内的极大值或者平均值。</p>
 <ul>
 <li>最大池化层(max pooling)，最常使用，计算图像区域内最大值，提取纹理效果较好。</li>
 </ul>
-<p><img src="2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-20171016214730544.png)</p>
+<p><img src="/2017/10/19/卷积神经网络(Convolutional Neural Network)/2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-20171016214730544.png)</p>
 <ul>
 <li>平均池化层(mean pooling)，计算图像区域的平均值，保留背景更好。</li>
 </ul>
-<p><img src="2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-20171016214806523.png)</p>
+<p><img src="/2017/10/19/卷积神经网络(Convolutional Neural Network)/2017-10-19-卷积神经网络(Convolutional Neural Network" alt="">/markdown-img-paste-20171016214806523.png)</p>
 <ul>
 <li>随机池化层(stochastic pooling)，介于两者之间，通过对像素点按照数值大小赋予概率，再按照概率进行亚采样。</li>
 </ul>
@@ -610,7 +610,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -658,7 +658,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积神经网络"><span class="nav-number">1.</span> <span class="nav-text">卷积神经网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积神经网络结构）"><span class="nav-number">2.</span> <span class="nav-text">卷积神经网络结构）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入层"><span class="nav-number">2.1.</span> <span class="nav-text">输入层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积层"><span class="nav-number">2.2.</span> <span class="nav-text">卷积层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积"><span class="nav-number">2.2.1.</span> <span class="nav-text">卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权值共享"><span class="nav-number">2.2.2.</span> <span class="nav-text">权值共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多卷积核"><span class="nav-number">2.2.3.</span> <span class="nav-text">多卷积核</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化层"><span class="nav-number">2.3.</span> <span class="nav-text">池化层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全连接层"><span class="nav-number">2.3.1.</span> <span class="nav-text">全连接层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出层"><span class="nav-number">2.3.2.</span> <span class="nav-text">输出层</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TensorFlow部署CNN"><span class="nav-number">3.</span> <span class="nav-text">TensorFlow部署CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积-1"><span class="nav-number">3.1.</span> <span class="nav-text">卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化"><span class="nav-number">3.2.</span> <span class="nav-text">池化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数"><span class="nav-number">3.3.</span> <span class="nav-text">激活函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CNN-应用-MNIST"><span class="nav-number">4.</span> <span class="nav-text">CNN 应用 MNIST</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积神经网络"><span class="nav-number">1.</span> <span class="nav-text">卷积神经网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积神经网络结构"><span class="nav-number">2.</span> <span class="nav-text">卷积神经网络结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#输入层"><span class="nav-number">2.1.</span> <span class="nav-text">输入层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积层"><span class="nav-number">2.2.</span> <span class="nav-text">卷积层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积"><span class="nav-number">2.2.1.</span> <span class="nav-text">卷积</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权值共享"><span class="nav-number">2.2.2.</span> <span class="nav-text">权值共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多卷积核"><span class="nav-number">2.2.3.</span> <span class="nav-text">多卷积核</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化层"><span class="nav-number">2.3.</span> <span class="nav-text">池化层</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#全连接层"><span class="nav-number">2.3.1.</span> <span class="nav-text">全连接层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出层"><span class="nav-number">2.3.2.</span> <span class="nav-text">输出层</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TensorFlow部署CNN"><span class="nav-number">3.</span> <span class="nav-text">TensorFlow部署CNN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#卷积-1"><span class="nav-number">3.1.</span> <span class="nav-text">卷积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#池化"><span class="nav-number">3.2.</span> <span class="nav-text">池化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数"><span class="nav-number">3.3.</span> <span class="nav-text">激活函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CNN-应用-MNIST"><span class="nav-number">4.</span> <span class="nav-text">CNN 应用 MNIST</span></a></li></ol></div>
             
 
           </div>

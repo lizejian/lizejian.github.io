@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="boosting,bagging,AdaBoost,GBDT,xgboost,随机森林," />
 
 
 
@@ -94,13 +94,15 @@
 
 
 
-<meta name="description" content="提升(boosting)方法是一种常用的统计学习方法，应用广泛且有效。在分类问题中，它通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类的性能。 基本思想：对于分类问题而言，给定一个训练样本集，求比较粗糙的分类规则(弱分类器)要比求精确的分类规则(强分类器)容易得多。提升方法就是从弱学习算法出发，反复学习，得到一系列弱分类器(又称为基本分类器)，然后组合这些弱分类器，构成">
+<meta name="description" content="集成学习(Ensemble Learning)是指通过训练多个分类器，然后将这些分类器组合起来，来获得比单个分类器更优的性能。机器学习主要有两个流派，boosting和bagging。 boosting提升(boosting)方法是一种常用的统计学习方法，应用广泛且有效。在分类问题中，它通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类的性能。  基本思想：对于分类问题而">
+<meta name="keywords" content="boosting,bagging,AdaBoost,GBDT,xgboost,随机森林">
 <meta property="og:type" content="article">
-<meta property="og:title" content="提升方法">
-<meta property="og:url" content="http://lizejian.github.io.com/2017/11/08/提升方法/index.html">
+<meta property="og:title" content="集成学习法(Ensemble Learning)">
+<meta property="og:url" content="http://lizejian.github.io.com/2017/11/08/集成学习(Ensemble Learning)/index.html">
 <meta property="og:site_name" content="Zejian&#39;s Blog">
-<meta property="og:description" content="提升(boosting)方法是一种常用的统计学习方法，应用广泛且有效。在分类问题中，它通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类的性能。 基本思想：对于分类问题而言，给定一个训练样本集，求比较粗糙的分类规则(弱分类器)要比求精确的分类规则(强分类器)容易得多。提升方法就是从弱学习算法出发，反复学习，得到一系列弱分类器(又称为基本分类器)，然后组合这些弱分类器，构成">
+<meta property="og:description" content="集成学习(Ensemble Learning)是指通过训练多个分类器，然后将这些分类器组合起来，来获得比单个分类器更优的性能。机器学习主要有两个流派，boosting和bagging。 boosting提升(boosting)方法是一种常用的统计学习方法，应用广泛且有效。在分类问题中，它通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类的性能。  基本思想：对于分类问题而">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/1042406/201612/1042406-20161204194331365-2142863547.png">
 <meta property="og:image" content="http://dataunion.org/wp-content/uploads/2015/04/QQ%E6%88%AA%E5%9B%BE20150423163114.png">
 <meta property="og:image" content="http://dataunion.org/wp-content/uploads/2015/04/QQ%E6%88%AA%E5%9B%BE20150423163152.png">
 <meta property="og:image" content="http://dataunion.org/wp-content/uploads/2015/04/410.png">
@@ -117,11 +119,12 @@
 <meta property="og:image" content="http://dataunion.org/wp-content/uploads/2015/04/143.png">
 <meta property="og:image" content="http://dataunion.org/wp-content/uploads/2015/04/image1.png">
 <meta property="og:image" content="http://dataunion.org/wp-content/uploads/2015/04/133.png">
-<meta property="og:updated_time" content="2017-11-09T01:37:04.000Z">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/1042406/201612/1042406-20161204200000787-1988863729.png">
+<meta property="og:updated_time" content="2017-11-11T10:57:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="提升方法">
-<meta name="twitter:description" content="提升(boosting)方法是一种常用的统计学习方法，应用广泛且有效。在分类问题中，它通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类的性能。 基本思想：对于分类问题而言，给定一个训练样本集，求比较粗糙的分类规则(弱分类器)要比求精确的分类规则(强分类器)容易得多。提升方法就是从弱学习算法出发，反复学习，得到一系列弱分类器(又称为基本分类器)，然后组合这些弱分类器，构成">
-<meta name="twitter:image" content="http://dataunion.org/wp-content/uploads/2015/04/QQ%E6%88%AA%E5%9B%BE20150423163114.png">
+<meta name="twitter:title" content="集成学习法(Ensemble Learning)">
+<meta name="twitter:description" content="集成学习(Ensemble Learning)是指通过训练多个分类器，然后将这些分类器组合起来，来获得比单个分类器更优的性能。机器学习主要有两个流派，boosting和bagging。 boosting提升(boosting)方法是一种常用的统计学习方法，应用广泛且有效。在分类问题中，它通过改变训练样本的权重，学习多个分类器，并将这些分类器进行线性组合，提高分类的性能。  基本思想：对于分类问题而">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/1042406/201612/1042406-20161204194331365-2142863547.png">
 
 
 
@@ -150,13 +153,13 @@
 
 
 
-  <link rel="canonical" href="http://lizejian.github.io.com/2017/11/08/提升方法/"/>
+  <link rel="canonical" href="http://lizejian.github.io.com/2017/11/08/集成学习(Ensemble Learning)/"/>
 
 
 
 
 
-  <title>提升方法 | Zejian's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>集成学习法(Ensemble Learning) | Zejian's Blog</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -299,7 +302,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://lizejian.github.io.com/2017/11/08/提升方法/">
+    <link itemprop="mainEntityOfPage" href="http://lizejian.github.io.com/2017/11/08/集成学习(Ensemble Learning)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zejian">
@@ -316,7 +319,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">提升方法</h1>
+          <h1 class="post-title" itemprop="name headline">集成学习法(Ensemble Learning)</h1>
         
 
         <div class="post-meta">
@@ -393,12 +396,14 @@
       
 
       
-        <p>提升(boosting)方法是一种常用的统计学习方法，应用广泛且有效。在分类问题中，它通过改变训练样本的<strong>权重</strong>，学习多个分类器，并将这些分类器进行线性组合，提高分类的性能。</p>
-<p><strong>基本思想</strong>：对于分类问题而言，给定一个训练样本集，求比较粗糙的分类规则(弱分类器)要比求精确的分类规则(强分类器)容易得多。提升方法就是从弱学习算法出发，反复学习，得到一系列弱分类器(又称为基本分类器)，然后组合这些弱分类器，构成一个强分类器。大多数的提升方法都是改变训练数据的概率分布(训练数据的权值分布)，针对不同的训练数据分布调用弱学习算法学习一系列弱分类器。</p>
-<h1 id="AdaBoost算法"><a href="#AdaBoost算法" class="headerlink" title="AdaBoost算法"></a>AdaBoost算法</h1><p>对提升方法来说，有两个问题需要回答：一是在每一轮如何改变训练数据的权值或概率分布；二是如何将弱分类器组合成一个强分类器。</p>
+        <p>集成学习(Ensemble Learning)是指通过训练多个分类器，然后将这些分类器组合起来，来获得比单个分类器更优的性能。机器学习主要有两个流派，boosting和bagging。</p>
+<h1 id="boosting"><a href="#boosting" class="headerlink" title="boosting"></a>boosting</h1><p>提升(boosting)方法是一种常用的统计学习方法，应用广泛且有效。在分类问题中，它通过改变训练样本的<strong>权重</strong>，学习多个分类器，并将这些分类器进行线性组合，提高分类的性能。</p>
+<p><img src="http://images2015.cnblogs.com/blog/1042406/201612/1042406-20161204194331365-2142863547.png" alt=""></p>
+<p><strong>基本思想</strong>：对于分类问题而言，给定一个训练样本集，求比较粗糙的分类规则(弱分类器)要比求精确的分类规则(强分类器)容易得多。提升方法就是从弱学习算法出发，反复学习，得到一系列弱分类器(又称为基本分类器)，然后组合这些弱分类器，构成一个强分类器。大多数的提升方法都是<strong>改变训练数据的概率分布</strong>(训练数据的权值分布)，针对不同的训练数据分布调用弱学习算法学习一系列弱分类器。</p>
+<h2 id="AdaBoost算法"><a href="#AdaBoost算法" class="headerlink" title="AdaBoost算法"></a>AdaBoost算法</h2><p>对提升方法来说，有两个问题需要回答：一是在每一轮如何改变训练数据的权值或概率分布；二是如何将弱分类器组合成一个强分类器。</p>
 <p>关于第1个问题，AdaBoost的做法是，<strong>提高那些被前一轮弱分类器错误分类样本的权值</strong>，而降低那些被正确分类样本的权值。这样一来，那些没有得到正确分类的数据，由于其权值的加大而受到后轮的弱分类器的更大关注。于是，分类问题被一系列的弱分类器<strong>“分而治之”</strong>。</p>
 <p>至于第2个问题，即弱分类器的组合，AdaBoost采取<strong>加权多数表决</strong>的方法。具体地，加大分类误差率小的弱分类器的权值，使其在表决中起较大的作用，减小分类误差率大的弱分类器的权值，使其在表决中起较小的作用。</p>
-<h2 id="具体算法"><a href="#具体算法" class="headerlink" title="具体算法"></a>具体算法</h2><p>输入：训练数据集$T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)}$，其中$x_i\in\mathcal{X},y_i\in{-1,1}$。</p>
+<h3 id="具体算法"><a href="#具体算法" class="headerlink" title="具体算法"></a>具体算法</h3><p>输入：训练数据集$T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)}$，其中$x_i\in\mathcal{X},y_i\in{-1,1}$。</p>
 <ol>
 <li>初始化训练数据的权值分布</li>
 </ol>
@@ -409,24 +414,26 @@
 </li>
 </ol>
 <p>$$<br>G_m(x):\mathcal{X}\to{-1,+1}<br>$$</p>
-<p>​    （b）计算$G_m(x)$在训练数据集上的分类误差率<br>$$<br>e_m=P(G_m(x_i)\neq y<em>i)=\sum</em>{i=1}^{N}w_{mi}I(G_m(x_i)\neq y_i)<br>$$<br>​    （c）计算$G_m(x)$的系数<br>$$<br>\alpha_m=\frac{1}{2}\log{\frac{1-e_m}{e<em>m}}<br>$$<br>​    （d）更新训练数据集的权值分布<br>$$<br>D</em>{m+1}=(w<em>{m+1,1},…,w</em>{m+1,i},…,w<em>{m+1,N})\<br>w</em>{m+1,i}=\frac{w_{mi}}{Z_m}\exp(-\alpha_my_iG_m(x_i)),i=1,2,…N\<br>Z<em>m= \sum</em>{i=1}^{N}w_{mi}\exp(-\alpha_my_iG_m(x_i))<br>$$</p>
+<p>​    （b）计算$G_m(x)$在训练数据集上的分类误差率<br>$$<br>e_m=P(G_m(x_i)\neq y<em>i)=\sum</em>{i=1}^{N}w_{mi}I(G_m(x_i)\neq y_i)<br>$$<br>​    （c）计算$G_m(x)$的系数<br>$$<br>\alpha_m=\frac{1}{2}\log{\frac{1-e_m}{e<em>m}}<br>$$<br>​    （d）更新训练数据集的权值分布<br>$$<br>D</em>{m+1}=(w<em>{m+1,1},…,w</em>{m+1,i},…,w<em>{m+1,N})\<br>w</em>{m+1,i}=\frac{w_{mi}}{Z_m}\exp(-\alpha_my_iG_m(x_i)),i=1,2,…N\<br>Z<em>m= \sum</em>{i=1}^{N}w_{mi}\exp(-\alpha_my_iG_m(x_i))\text{归一化因子}<br>$$</p>
 <ol>
-<li>构建基本分类器的线性组合<br>$$<br>f(x)=\sum_{m=1}^{M}\alpha_mG<em>m(x)<br>$$<br>得到最终的分类器<br>$$<br>G(x)=\text{sign}(f(x))=\text{sign}\left(\sum</em>{m=1}^{M}\alpha_mG_m(x)\right)<br>$$</li>
+<li>构建基本分类器的线性组合</li>
 </ol>
-<h2 id="AdaBoost算法的解释"><a href="#AdaBoost算法的解释" class="headerlink" title="AdaBoost算法的解释"></a>AdaBoost算法的解释</h2><p>AdaBoost算法还有另一个解释，即可以认为AdaBoost算法是<strong>模型为加法模型、损失函数为指数函数、学习算法为前向分步算法</strong>时的二类分类学习方法。</p>
-<h3 id="前向分步算法"><a href="#前向分步算法" class="headerlink" title="前向分步算法"></a>前向分步算法</h3><p>考虑加法模型<br>$$<br>f(x)=\sum_{m=1}^{M}\beta_mb(x;\gamma_m)<br>$$<br>其中$b(x;\gamma_m)$是基函数，$\gamma_m$为基函数的参数，$\beta_m$为基函数的系数。</p>
-<p>在给定训练数据集及损失函数$L(y,f(x))$的条件下，学习加法模型$f(x)$成为经验风险最小问题：<br>$$<br>\min_\limits{\beta_m,\gamma<em>m}\sum</em>{i=1}^{N}L\left(y<em>i,\sum</em>{m=1}^{N}\beta_mb(x_i;\gamma_m)\right)<br>$$<br>前向分步算法求解这一优化问题的思路是：从前到后，每一步只学习一个基函数及系数，逐步接近目标函数式。</p>
-<h3 id="前向分步算法与AdaBoost"><a href="#前向分步算法与AdaBoost" class="headerlink" title="前向分步算法与AdaBoost"></a>前向分步算法与AdaBoost</h3><p>证明：AdaBoost算法是前向分步加法算法的特例。这时，模型是由基本分类器组成的加法模型，损失函数是<strong>指数函数</strong>。</p>
-<h1 id="提升树"><a href="#提升树" class="headerlink" title="提升树"></a>提升树</h1><p>提升树是以分类树或回归树为基本分类器的提升方法。</p>
-<h2 id="提升树模型"><a href="#提升树模型" class="headerlink" title="提升树模型"></a>提升树模型</h2><p><strong>以决策树为基函数的提升方法称为提升树(boosting tree)</strong>。对分类问题决策树是二叉分类树，对回归问题决策树是二叉回归树。</p>
+<p>$$<br>f(x)=\sum_{m=1}^{M}\alpha_mG_m(x)<br>$$</p>
+<p>得到最终的分类器<br>$$<br>G(x)=\text{sign}(f(x))=\text{sign}\left(\sum_{m=1}^{M}\alpha_mG_m(x)\right) \text{sign函数为符号函数}<br>$$</p>
+<h3 id="AdaBoost算法的解释"><a href="#AdaBoost算法的解释" class="headerlink" title="AdaBoost算法的解释"></a>AdaBoost算法的解释</h3><p>AdaBoost算法还有另一个解释，即可以认为AdaBoost算法是<strong>模型为加法模型、损失函数为指数函数、学习算法为前向分步算法</strong>时的二类分类学习方法。</p>
+<h4 id="前向分步算法"><a href="#前向分步算法" class="headerlink" title="前向分步算法"></a>前向分步算法</h4><p>考虑加法模型<br>$$<br>f(x)=\sum_{m=1}^{M}\beta_mb(x;\gamma_m)<br>$$<br>其中$b(x;\gamma_m)$是基函数，$\gamma_m$为基函数的参数，$\beta_m$为基函数的系数。</p>
+<p>在给定训练数据集及损失函数$L(y,f(x))​$的条件下，学习加法模型$f(x)​$成为经验风险最小问题：<br>$$<br>\min_\limits{\beta_m,\gamma<em>m}\sum</em>{i=1}^{N}L\left(y<em>i,\sum</em>{m=1}^{N}\beta_mb(x_i;\gamma_m)\right)<br>$$<br>前向分步算法求解这一优化问题的思路是：从前到后，每一步只学习一个基函数及系数，逐步接近目标函数式。</p>
+<h4 id="前向分步算法与AdaBoost"><a href="#前向分步算法与AdaBoost" class="headerlink" title="前向分步算法与AdaBoost"></a>前向分步算法与AdaBoost</h4><p>证明：AdaBoost算法是前向分步加法算法的特例。这时，模型是由基本分类器组成的加法模型，损失函数是<strong>指数函数</strong>。</p>
+<h2 id="提升树"><a href="#提升树" class="headerlink" title="提升树"></a>提升树</h2><p>提升树是以分类树或回归树为基本分类器的提升方法。</p>
+<h3 id="提升树模型"><a href="#提升树模型" class="headerlink" title="提升树模型"></a>提升树模型</h3><p><strong>以决策树为基函数的提升方法称为提升树(boosting tree)</strong>。对分类问题决策树是二叉分类树，对回归问题决策树是二叉回归树。</p>
 <p>基本分类器$x<v$或$x>v$，可以看作是由一个根结点直接连接两个叶结点的简单决策树，即所谓的<strong>决策树桩(decision stump)。</strong></v$或$x></p>
 <p>提升树模型可以表示为决策树的加法模型:<br>$$<br>f<em>M(x)=\sum</em>{m=1}^{M}T(x;\Theta_m)<br>$$<br>其中，$T$表示决策树，$\Theta$为决策树的参数，$M$为树的个数。</p>
-<h2 id="提升树算法"><a href="#提升树算法" class="headerlink" title="提升树算法"></a>提升树算法</h2><p>提升树算法采用前向分步算法。首先确定初始提升树$f_0(x)=0$，第$m$步的模型是<br>$$<br>f<em>m(x)=f</em>{m-1}(x)+T(x;\Theta<em>m)<br>$$<br>其中，$f</em>{m-1}(x)为$当前模型，通过经验风险极小化确定下一棵决策树的参数。<br>$$<br>\hat{\Theta}<em>m=\arg\min</em>\limits{\Theta<em>m}\sum</em>{i=1}^NL(y<em>i,f</em>{m-1}(x_i)+T(x_i;\Theta_m))<br>$$<br>不同问题的提升树学习算法主要区别在于使用的损失函数不同。包括<strong>用平方误差损失函数的回归问题，用指数损失函数的分类问题，以及用一般损失函数的一般决策问题</strong>。</p>
+<h3 id="提升树算法"><a href="#提升树算法" class="headerlink" title="提升树算法"></a>提升树算法</h3><p>提升树算法采用前向分步算法。首先确定初始提升树$f_0(x)=0$，第$m$步的模型是<br>$$<br>f<em>m(x)=f</em>{m-1}(x)+T(x;\Theta<em>m)<br>$$<br>其中，$f</em>{m-1}(x)$为当前模型，通过经验风险极小化确定下一棵决策树的参数。<br>$$<br>\hat{\Theta}<em>m=\arg\min</em>\limits{\Theta<em>m}\sum</em>{i=1}^NL(y<em>i,f</em>{m-1}(x_i)+T(x_i;\Theta_m))<br>$$<br>不同问题的提升树学习算法主要区别在于使用的损失函数不同。包括<strong>用平方误差损失函数的回归问题，用指数损失函数的分类问题，以及用一般损失函数的一般决策问题</strong>。</p>
 <p>对于<strong>二类分类问题</strong>，提升树算法只需将AdaBoost算法中的基本分类器限制为<strong>二类分类树</strong>即可，是AdaBoost算法的特殊情况。</p>
 <p>对于<strong>回归问题</strong>，当采用平方误差函数时<br>$$<br>L(y,f(x))=(y-f(x))^2<br>$$<br>其损失变为<br>$$<br>L(y,f_{m-1}(x)+T(x;\Theta<em>m))\<br>=[y-f</em>{m-1}(x)-T(x;\Theta_m)]^2\<br>=[r-T(x;\Theta_m)]^2<br>$$<br>这里$r$是当前模型拟合数据的残差。</p>
 <p><strong>所以对回归问题的提升树算法来说，求解经验风险极小化的问题只需简单地拟合当前模型的残差。</strong></p>
-<h2 id="梯度提升决策树-GBDT"><a href="#梯度提升决策树-GBDT" class="headerlink" title="梯度提升决策树(GBDT)"></a>梯度提升决策树(GBDT)</h2><p>提升树利用加法模型与前向分步算法实现学习的优化过程。当损失函数是平方损失和指数损失函数时。每一步优化是很简单的。但对<strong>一般损失函数</strong>而言，往往每一步优化并不那么容易。</p>
-<p>GBDT(Gradient Boosting Decision Tree) 又叫MART(Multiple Additive Regression Tree)被提出来解决这类问题，其关键是利用损失函数的负梯度在当前模型的值<br>$$<br>-[\frac{\partial L(y,f(x_i))}{\partial f(x<em>i)}]</em>{f(x)=f_{m-1}(x)}<br>$$<br>作为回归问题提升树算法中的残差的近似值，拟合一个回归树。</p>
+<h3 id="梯度提升决策树-GBDT"><a href="#梯度提升决策树-GBDT" class="headerlink" title="梯度提升决策树(GBDT)"></a>梯度提升决策树(GBDT)</h3><p>提升树利用加法模型与前向分步算法实现学习的优化过程。当损失函数是平方损失和指数损失函数时。每一步优化是很简单的。但对<strong>一般损失函数</strong>而言，往往每一步优化并不那么容易。</p>
+<p>GBDT(Gradient Boosting Decision Tree)又叫MART(Multiple Additive Regression Tree)被提出来解决这类问题，其关键是利用损失函数的负梯度在当前模型的值<br>$$<br>-[\frac{\partial L(y,f(x_i))}{\partial f(x<em>i)}]</em>{f(x)=f_{m-1}(x)}<br>$$<br>作为回归问题提升树算法中的残差的近似值，拟合一个回归树。</p>
 <p><strong>梯度提升算法</strong></p>
 <p>输入：训练数据集$T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)}$</p>
 <ol>
@@ -446,11 +453,11 @@
 <p>第2 (c)步利用线性搜索估计叶结点区域的值，使损失函数极小化</p>
 <p>第2 (d)步更新回归树。</p>
 <p>第3步得到输出的最终模型。</p>
-<h2 id="xgboost"><a href="#xgboost" class="headerlink" title="xgboost"></a>xgboost</h2><p>加法模型</p>
+<h3 id="xgboost"><a href="#xgboost" class="headerlink" title="xgboost"></a>xgboost</h3><p>加法模型</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/QQ%E6%88%AA%E5%9B%BE20150423163114.png" alt="http://dataunion.org/wp-content/uploads/2015/04/QQ%E6%88%AA%E5%9B%BE20150423163114.png"></p>
 <p>目标函数</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/QQ%E6%88%AA%E5%9B%BE20150423163152.png" alt=""></p>
-<h3 id="模型学习"><a href="#模型学习" class="headerlink" title="模型学习"></a>模型学习</h3><p>其中第一部分是训练误差，也就是大家相对比较熟悉的如平方误差，logistic loss等。而第二部分是每棵树的复杂度的和。我们会采用一种叫做additive training的方式，每一次保留原来的模型不变，加入一个新的函数$f$到我们的模型中。</p>
+<h4 id="模型学习"><a href="#模型学习" class="headerlink" title="模型学习"></a>模型学习</h4><p>其中第一部分是训练误差，也就是大家相对比较熟悉的如平方误差，logistic loss等。而第二部分是每棵树的复杂度的和。我们会采用一种叫做additive training的方式，每一次保留原来的模型不变，加入一个新的函数$f$到我们的模型中。</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/410.png" alt=""></p>
 <p>现在还剩下一个问题，我们如何选择每一轮加入什么$f$呢？答案是非常直接的，选取一个$f$来使得我们的目标函数尽量最大地降低。</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/510.png" alt=""></p>
@@ -458,14 +465,14 @@
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/61.png" alt=""></p>
 <p>更加一般的，对于不是平方误差的情况，我们会采用如下的泰勒展开近似来定义一个近似的目标函数，方便我们进行这一步的计算。</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/72.png" alt=""></p>
-<p>当把<strong>常数项</strong>移除之后，我们会发现如下一个比较统一的目标函数。这一个目标函数有一个非常明显的特点，它只依赖于每个数据点在误差函数上的一阶导数和二阶导数10。</p>
+<p>当把<strong>常数项</strong>移除之后，我们会发现如下一个比较统一的目标函数。这一个目标函数有一个非常明显的特点，它只依赖于每个数据点在误差函数上的一阶导数和二阶导数。</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/82.png" alt=""></p>
-<p>为什么要花这么多力气来做推导呢？因为这样做可以很清楚地理解整个目标是什么，并且一步一步推导出如何进行树的学习。<strong>这一个抽象的形式对于实现机器学习工具也是非常有帮助的</strong>。传统的GBDT可能大家可以理解如优化平法a残差，但是这样一个形式包含可所有可以求导的目标函数。也就是说有了这个形式，我们写出来的代码可以用来求解包括回归，分类和排序的各种问题，<strong>正式的推导可以使得机器学习的工具更加一般</strong>。</p>
-<h3 id="树的复杂度"><a href="#树的复杂度" class="headerlink" title="树的复杂度"></a>树的复杂度</h3><p>接下来讨论如何定义树的复杂度。首先对于$f$的定义做一下细化，把树拆分成结构部分$q$和叶子权重部分$w$。下图是一个具体的例子。结构函数$q$把输入映射到叶子的索引号上面去，而$w$给定了每个索引号对应的叶子分数是什么。</p>
+<p>为什么要花这么多力气来做推导呢？因为这样做可以很清楚地理解整个目标是什么，并且一步一步推导出如何进行树的学习。<strong>这一个抽象的形式对于实现机器学习工具也是非常有帮助的</strong>。<strong>这样一个形式包含可所有可以求导的目标函数。也就是说有了这个形式，我们写出来的代码可以用来求解包括回归，分类和排序的各种问题，正式的推导可以使得机器学习的工具更加一般</strong>。</p>
+<h4 id="树的复杂度"><a href="#树的复杂度" class="headerlink" title="树的复杂度"></a>树的复杂度</h4><p>接下来讨论如何定义树的复杂度。首先对于$f$的定义做一下细化，把树拆分成结构部分$q$和叶子权重部分$w$。下图是一个具体的例子。结构函数$q$把输入映射到叶子的索引号上面去，而$w$给定了每个索引号对应的叶子分数是什么。</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/94.png" alt=""></p>
 <p>当给定了如上定义之后，可以定义一棵树的复杂度如下。这个复杂度包含了一棵树里面节点的个数，以及每个树叶子节点上面输出分数的$L2$模平方。<strong>当然这不是唯一的一种定义方式，不过这一定义方式学习出的树效果一般都比较不错</strong>。下图还给出了复杂度计算的一个例子。</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/102.png" alt=""></p>
-<h3 id="关键步骤"><a href="#关键步骤" class="headerlink" title="关键步骤"></a>关键步骤</h3><p>接下来是最关键的一步，在这种新的定义下，可以把目标函数进行如下改写，其中$I$被定义为每个叶子上面样本集合$ I_j = { i|q(x_i)=j}$。</p>
+<h4 id="关键步骤"><a href="#关键步骤" class="headerlink" title="关键步骤"></a>关键步骤</h4><p>接下来是最关键的一步，在这种新的定义下，可以把目标函数进行如下改写，其中$I$被定义为每个叶子上面样本集合$ I_j = { i|q(x_i)=j}$。</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/a-1024x199.png" alt=""></p>
 <p>这一个目标包含了T个相互独立的单变量二次函数。定义</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/QQ%E6%88%AA%E5%9B%BE20150423163401.png" alt=""></p>
@@ -473,23 +480,46 @@
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/QQ%E6%88%AA%E5%9B%BE20150423163423.png" alt=""></p>
 <p>通过求一个一维二次函数的最小值，结果对应如下，左边是最好的w，右边是这个w对应的目标函数的值。</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/QQ%E6%88%AA%E5%9B%BE20150423163446.png" alt=""></p>
-<h3 id="打分计算举例"><a href="#打分计算举例" class="headerlink" title="打分计算举例"></a>打分计算举例</h3><p>$Obj$代表了当我们指定一个树的结构的时候，我们在目标上面最多减少多少。我们可以把它叫做结构分数(structure score)。你可以认为这个就是类似吉尼系数一样更加一般的对于树结构进行打分的函数。</p>
+<h4 id="打分计算举例"><a href="#打分计算举例" class="headerlink" title="打分计算举例"></a>打分计算举例</h4><p>$Obj$代表了当我们指定一个树的结构的时候，我们在目标上面最多减少多少。我们可以把它叫做结构分数(structure score)。你可以认为这个就是类似吉尼系数一样更加一般的对于树结构进行打分的函数。</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/143.png" alt=""></p>
-<h3 id="枚举所有不同树结构的贪心法"><a href="#枚举所有不同树结构的贪心法" class="headerlink" title="枚举所有不同树结构的贪心法"></a>枚举所有不同树结构的贪心法</h3><p>所以我们的算法也很简单，我们不断地枚举不同树的结构，利用这个打分函数来寻找出一个最优结构的树，加入到我们的模型中，再重复这样的操作。不过枚举所有树结构这个操作不太可行，所以常用的方法是贪心法，每一次尝试去对已有的叶子加入一个分割。对于一个具体的分割方案，我们可以获得的增益可以由如下公式计算</p>
+<h4 id="枚举所有不同树结构的贪心法"><a href="#枚举所有不同树结构的贪心法" class="headerlink" title="枚举所有不同树结构的贪心法"></a>枚举所有不同树结构的贪心法</h4><p>所以我们的算法也很简单，我们不断地枚举不同树的结构，利用这个打分函数来寻找出一个最优结构的树，加入到我们的模型中，再重复这样的操作。不过枚举所有树结构这个操作不太可行，所以常用的方法是贪心法，每一次尝试去对已有的叶子加入一个分割。对于一个具体的分割方案，我们可以获得的增益可以由如下公式计算</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/image1.png" alt=""></p>
 <p>对于每次扩展，我们还是要枚举所有可能的分割方案，如何高效地枚举所有的分割呢？我假设我们要枚举所有 x&lt;a 这样的条件，对于某个特定的分割a我们要计算a左边和右边的导数和。</p>
 <p><img src="http://dataunion.org/wp-content/uploads/2015/04/133.png" alt=""></p>
 <p>我们可以发现对于所有的a，我们只要做一遍从左到右的扫描就可以枚举出所有分割的梯度和GL和GR。然后用上面的公式计算每个分割方案的分数就可以了。</p>
 <p>观察这个目标函数，大家会发现第二个值得注意的事情就是引入分割不一定会使得情况变好，因为我们有一个引入新叶子的惩罚项。优化这个目标对应了树的剪枝， 当引入的分割带来的增益小于一个阀值的时候，我们可以剪掉这个分割。大家可以发现，当我们正式地推导目标的时候，像计算分数和剪枝这样的策略都会自然地出现，而不再是一种因为heuristic而进行的操作了。</p>
-<h2 id="GBDT与xgboost的区别"><a href="#GBDT与xgboost的区别" class="headerlink" title="GBDT与xgboost的区别"></a>GBDT与xgboost的区别</h2><p>xgboost算法的步骤和GBDT基本相同，都是首先初始化为一个常数，GBDT是根据一阶导数$r_i$，xgboost是根据一阶导数$gi$和二阶导数$hi$，迭代生成基学习器，相加更新学习器。</p>
+<h3 id="GBDT与xgboost的区别"><a href="#GBDT与xgboost的区别" class="headerlink" title="GBDT与xgboost的区别"></a>GBDT与xgboost的区别</h3><p>xgboost算法的步骤和GBDT基本相同，都是首先初始化为一个常数，GBDT是根据一阶导数$r_i$，xgboost是根据一阶导数$gi$和二阶导数$hi$，迭代生成基学习器，相加更新学习器。</p>
 <p>xgboost与gdbt除了上述三点的不同，xgboost在实现时还做了许多<strong>优化</strong>：</p>
 <ul>
 <li>在寻找最佳分割点时，考虑传统的枚举每个特征的所有可能分割点的贪心法效率太低，xgboost实现了一种近似的算法。大致的思想是根据百分位法列举几个可能成为分割点的候选者，然后从候选者中根据上面求分割点的公式计算找出最佳的分割点。</li>
-<li>xgboost考虑了训练数据为稀疏值的情况，可以为缺失值或者指定的值指定分支的默认方向，这能大大提升算法的效率，paper提到50倍。</li>
 <li>特征列排序后以块的形式存储在内存中，在迭代中可以重复使用；虽然boosting算法迭代必须串行，但是在处理每个特征列时可以做到并行。</li>
 <li>按照特征列方式存储能优化寻找最佳的分割点，但是当以行计算梯度数据时会导致内存的不连续访问，严重时会导致cache miss，降低算法效率。paper中提到，可先将数据收集到线程内部的buffer，然后再计算，提高算法的效率。</li>
 <li>xgboost 还考虑了当数据量比较大，内存不够时怎么有效的使用磁盘，主要是结合多线程、数据压缩、分片的方法，尽可能的提高算法的效率。</li>
 </ul>
+<h1 id="bagging"><a href="#bagging" class="headerlink" title="bagging"></a>bagging</h1><p>bagging的算法原理和boosting不同，它的弱学习器之间没有依赖关系，可以并行生成，我们可以用一张图做一个概括如下：</p>
+<p><img src="http://images2015.cnblogs.com/blog/1042406/201612/1042406-20161204200000787-1988863729.png" alt=""></p>
+<p>bagging的个体弱学习器的训练集是通过随机采样得到的。通过$T$次的随机采样，我们就可以得到$T$个采样集，对于这T个采样集，我们可以分别独立的训练出$T$个弱学习器，再对这$T$个弱学习器通过集合策略来得到最终的强学习器。</p>
+<p>对于随机采样有必要做进一步的介绍，这里一般采用的是自助采样法(Bootstap sampling)，即对于m个样本的原始训练集，我们每次先随机采集一个样本放入采样集，接着把该样本放回，也就是说下次采样时该样本仍有可能被采集到，这样采集m次，最终可以得到m个样本的采样集，由于是随机采样，这样每次的采样集是和原始训练集不同的，和其他采样集也是不同的，这样得到多个不同的弱学习器。</p>
+<h2 id="随机森林-Random-Forest"><a href="#随机森林-Random-Forest" class="headerlink" title="随机森林(Random Forest)"></a>随机森林(Random Forest)</h2><p>随机森林是一个非常灵活的机器学习方法，从市场营销到医疗保险有着众多的应用，可以用于分类和回归问题，可以处理大量特征，并能够帮助估计用于建模数据变量的重要性。</p>
+<p>每棵树的按照如下规则生成：</p>
+<p>1）如果训练集大小为N，对于每棵树而言，随机且<strong>有放回</strong>地从训练集中的抽取N个训练样本（这种采样方式称为bootstrap sample方法），作为该树的训练集；</p>
+<p>　　从这里我们可以知道：每棵树的训练集都是不同的，而且里面包含重复的训练样本（理解这点很重要）。</p>
+<p>　　<strong>为什么要随机抽样训练集？</strong></p>
+<p>　　如果不进行随机抽样，每棵树的训练集都一样，那么最终训练出的树分类结果也是完全一样的，这样的话完全没有bagging的必要；</p>
+<p>　　<strong>为什么要有放回地抽样？</strong></p>
+<p>　　如果不是有放回的抽样，那么每棵树的训练样本都是不同的，都是没有交集的，这样每棵树都是”有偏的”，都是绝对”片面的”（当然这样说可能不对），也就是说每棵树训练出来都是有很大的差异的；而随机森林最后分类取决于多棵树（弱分类器）的投票表决，这种表决应该是”求同”，因此使用完全不同的训练集来训练每棵树这样对最终分类结果是没有帮助的，这样无异于是”盲人摸象”。</p>
+<p>2）如果每个样本的特征维度为$M$，指定一个常数$m&lt;M$，随机地从$M$个特征中选取$m$个特征子集，每次树进行分裂时，从这$m$个特征中选择最优的；</p>
+<p>3）每棵树都尽最大程度的生长，并且没有剪枝过程。</p>
+<p>　　一开始我们提到的随机森林中的“随机”就是指的这里的两个随机性。两个随机性的引入对随机森林的分类性能至关重要。由于它们的引入，使得随机森林不容易陷入过拟合，并且具有很好得抗噪能力（比如：对缺省值不敏感）。</p>
+<p>　　<strong>随机森林分类效果（错误率）与两个因素有关：</strong></p>
+<ul>
+<li>森林中任意两棵树的相关性：相关性越大，错误率越大；</li>
+<li>森林中每棵树的分类能力：每棵树的分类能力越强，整个森林的错误率越低。</li>
+</ul>
+<p>　　减小特征选择个数m，树的相关性和分类能力也会相应的降低；增大m，两者也会随之增大。所以关键问题是如何选择最优的m（或者是范围），这也是随机森林唯一的一个参数。在实际案例中，一般会通过交叉验证调参获取一个合适的$m$。</p>
+<p>参考</p>
+<p><a href="http://www.cnblogs.com/pinard/p/6131423.html" target="_blank" rel="external">http://www.cnblogs.com/pinard/p/6131423.html</a></p>
+<p><a href="https://www.cnblogs.com/maybe2030/p/4585705.html" target="_blank" rel="external">https://www.cnblogs.com/maybe2030/p/4585705.html</a></p>
 
       
     </div>
@@ -505,6 +535,22 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/boosting/" rel="tag"># boosting</a>
+          
+            <a href="/tags/bagging/" rel="tag"># bagging</a>
+          
+            <a href="/tags/AdaBoost/" rel="tag"># AdaBoost</a>
+          
+            <a href="/tags/GBDT/" rel="tag"># GBDT</a>
+          
+            <a href="/tags/xgboost/" rel="tag"># xgboost</a>
+          
+            <a href="/tags/随机森林/" rel="tag"># 随机森林</a>
+          
+        </div>
+      
 
       
       
@@ -514,8 +560,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/03/决策树/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2017/11/03/决策树/" rel="next" title="决策树">
+                <i class="fa fa-chevron-left"></i> 决策树
               </a>
             
           </div>
@@ -523,6 +569,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/11/特征工程/" rel="prev" title="特征工程">
+                特征工程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -621,7 +671,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -669,7 +719,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AdaBoost算法"><span class="nav-number">1.</span> <span class="nav-text">AdaBoost算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#具体算法"><span class="nav-number">1.1.</span> <span class="nav-text">具体算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AdaBoost算法的解释"><span class="nav-number">1.2.</span> <span class="nav-text">AdaBoost算法的解释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前向分步算法"><span class="nav-number">1.2.1.</span> <span class="nav-text">前向分步算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前向分步算法与AdaBoost"><span class="nav-number">1.2.2.</span> <span class="nav-text">前向分步算法与AdaBoost</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提升树"><span class="nav-number">2.</span> <span class="nav-text">提升树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#提升树模型"><span class="nav-number">2.1.</span> <span class="nav-text">提升树模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提升树算法"><span class="nav-number">2.2.</span> <span class="nav-text">提升树算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度提升决策树-GBDT"><span class="nav-number">2.3.</span> <span class="nav-text">梯度提升决策树(GBDT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xgboost"><span class="nav-number">2.4.</span> <span class="nav-text">xgboost</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型学习"><span class="nav-number">2.4.1.</span> <span class="nav-text">模型学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树的复杂度"><span class="nav-number">2.4.2.</span> <span class="nav-text">树的复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关键步骤"><span class="nav-number">2.4.3.</span> <span class="nav-text">关键步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打分计算举例"><span class="nav-number">2.4.4.</span> <span class="nav-text">打分计算举例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举所有不同树结构的贪心法"><span class="nav-number">2.4.5.</span> <span class="nav-text">枚举所有不同树结构的贪心法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GBDT与xgboost的区别"><span class="nav-number">2.5.</span> <span class="nav-text">GBDT与xgboost的区别</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#boosting"><span class="nav-number">1.</span> <span class="nav-text">boosting</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AdaBoost算法"><span class="nav-number">1.1.</span> <span class="nav-text">AdaBoost算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#具体算法"><span class="nav-number">1.1.1.</span> <span class="nav-text">具体算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AdaBoost算法的解释"><span class="nav-number">1.1.2.</span> <span class="nav-text">AdaBoost算法的解释</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向分步算法"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">前向分步算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前向分步算法与AdaBoost"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">前向分步算法与AdaBoost</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提升树"><span class="nav-number">1.2.</span> <span class="nav-text">提升树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#提升树模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">提升树模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提升树算法"><span class="nav-number">1.2.2.</span> <span class="nav-text">提升树算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度提升决策树-GBDT"><span class="nav-number">1.2.3.</span> <span class="nav-text">梯度提升决策树(GBDT)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xgboost"><span class="nav-number">1.2.4.</span> <span class="nav-text">xgboost</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型学习"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">模型学习</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#树的复杂度"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">树的复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键步骤"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">关键步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打分计算举例"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">打分计算举例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#枚举所有不同树结构的贪心法"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">枚举所有不同树结构的贪心法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GBDT与xgboost的区别"><span class="nav-number">1.2.5.</span> <span class="nav-text">GBDT与xgboost的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bagging"><span class="nav-number">2.</span> <span class="nav-text">bagging</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#随机森林-Random-Forest"><span class="nav-number">2.1.</span> <span class="nav-text">随机森林(Random Forest)</span></a></li></ol></li></ol></div>
             
 
           </div>
